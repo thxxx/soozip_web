@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'TTTogether';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EliceBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EliceRegular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.one-collection-container2{
+    margin:1%;
+}
+.one-collection{
+    width:200px;
+    text-decoration: none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+
+.collection-img{    
+    width:200px;
+    height:200px;
+    border-radius: 10px;
+}
+.collection-info{
+    text-decoration: none;
+    color:rgb(77, 77, 77);
+    margin-top:3%;
+    display: flex;
+    width:100%;
+    flex-direction:row;
+    font-size:13px;
+    font-family: EliceRegular;
+}
+.title{
+    width:100%;
+}
+.like{
+    font-weight: 500;
+    width:20%;
+    display: flex;
+    justify-content:end;
+    margin-right:3%;
+    color:rgb(245, 100, 100);
+}

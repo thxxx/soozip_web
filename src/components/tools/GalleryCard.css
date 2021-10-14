@@ -1,0 +1,54 @@
+.container{
+    height:100px;
+    width:300px;
+    background-color:white;
+    border-radius:10px;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    box-shadow: 4px 4px 10px rgba(25,25,25,0.2);
+    margin:10px;
+}
+.galleryimg{
+    width:90%;
+    height:70%;
+    background-color:green;
+    border-radius: 10px;
+}
+.titlecon{
+}
+.titlecon p{
+    font-weight: bold;
+    color:black;
+    font-size:1.1rem;
+    margin-top:1%;
+}
+
+.namecon{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.namecon span{
+    color:#696969;
+    font-size:0.8rem;
+}
+.move{
+    text-decoration: none;
+}
+.types{
+    font-size:10px;
+    width:100%;
+    display:flex;
+    justify-content:start;
+    text-decoration: none;
+    color:black;
+}
+.gallery-card-type{
+    margin:5px;
+    background-color:#060b26;
+    color:white;
+    padding:3px 5px;
+    border-radius:4px;
+}

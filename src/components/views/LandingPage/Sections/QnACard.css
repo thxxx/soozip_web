@@ -1,0 +1,26 @@
+.qna-card-container{
+    width:28%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+    margin:5px;
+    border-radius:15px;
+    padding:2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.link{
+    text-decoration:none;
+    color:black;
+}
+.qna-card-title{
+    font-family: EliceBold;
+    margin-top:3%;
+    font-size: 18px;
+}
+.qna-card-info{
+    margin-top:2%;
+    font-family: EliceRegular;
+    font-size: 13px;
+    color:gray;
+    padding-left:0%;
+}

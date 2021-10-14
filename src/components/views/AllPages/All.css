@@ -1,0 +1,12 @@
+.all-table-title{
+    background-color:#060b26;
+    width:100%;
+    height:20%;
+    height:100px;
+    font-family: EliceBold;
+    color:white;
+    font-size:20px;
+    display:flex;
+    align-items: center;
+    padding-left:3%;
+}

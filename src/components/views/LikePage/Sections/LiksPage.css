@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'TTTogether';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EliceBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EliceRegular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.my-like-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    width:100%;
+}
+.my-like-back{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    width:50%;
+    background-color:rgba(206, 206, 206, 0.747);
+    margin-top:5%;
+}
+.like-title{
+    font-family: EliceBold;
+    font-size: 30px;
+    border-bottom: 1px solid black;
+    width: 80%;
+}
+.gallery-like-one{
+    width:90%;
+    border-radius:20px;
+    background-color:white;
+    padding:3% 3%;
+    margin-top:2%;
+    flex-direction:column;
+    text-decoration: none;
+    display:flex;
+    box-shadow: 5px 5px 5px rgba(25,25,25,0.2);
+}
+.gallery_owner{
+    color:gray;
+    margin-bottom:5px;
+}
+.likes-gallery-name{
+    font-family: EliceBold;
+    color:black;
+    font-size:1.3rem;
+}
+.gallery-info{
+    margin-top:3%;
+    display: flex;
+    flex-direction: row;
+    color:gray;
+}
+.gangjo{
+    margin-left:0px;
+    color:black;
+    font-weight: 700;
+}
+.likes-type{
+    width:90px;
+    height:30px;
+    background-color:rgb(247, 119, 119);
+    border-radius: 20px;
+    margin-top:2%;
+    font-size:13px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    font-family:EliceRegular;
+}
+.info-title{
+    font-weight: 600;
+    margin-top:30px;
+}

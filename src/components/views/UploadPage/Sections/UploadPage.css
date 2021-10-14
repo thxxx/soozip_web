@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'TTTogether';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EliceBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.uploadcontainer{
+    text-align: center;
+    justify-content:center;
+    display: flex;
+    align-content: center;
+    color:rgb(226, 226, 226);
+    padding-top:2%;    
+    padding-bottom:10%;    
+    background-color:#060b26;
+}
+.uploadIncontainer{
+    width:50%;    
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-left:4%;
+    padding-top:0%;
+}
+.thanks{
+    font-size:50px;
+    display: flex;
+    color:#dddddd;
+    font-family: TTTogether;
+    margin-bottom:30px;
+}
+.add-thanks{
+    font-size:14px; 
+    color:rgba(210,210,210,1);
+    margin-top:-25px;
+    display: flex;
+    font-family:EliceBold;
+}
+.nameInput{
+    background-color:rgb(240, 240, 240);
+    width:100%;
+    font-family: EliceBold;
+    padding-left:3%;
+    border-radius: 12px;
+    height:70px;
+    display: flex;
+    font-size:14px;
+    color:rgb(48, 48, 48);
+}
+.nameInput1{
+    background-color:rgb(240, 240, 240);
+    width:100%;
+    font-family: EliceBold;
+    padding-left:3%;
+    border-radius: 12px;
+    height:40px;
+    display: flex;
+    font-size:14px;
+    color:rgb(48, 48, 48);
+}
+.inputLabel{
+    font-size:20px;
+    display: flex;
+    margin-top:7%;
+    color:rgb(212, 212, 212);
+    font-family: EliceBold;
+}
+.inputButton{
+    width:100%;
+    border-radius:10px;
+    margin-top:30px;
+    height:50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(235, 235, 235);
+    background-color:#d43d3d;
+}
+.file-input{
+    background-color: #d43d3d;
+}
+.selections{
+    margin-top:9%;
+    display: flex;
+    flex-direction:row;
+    width:400px;
+}
+.input-label-select{
+    font-size:20px;
+    display: flex;
+    color:rgb(212, 212, 212);
+    font-family: EliceBold;
+}
+.col-image{
+    width:50%;
+    height:50%;
+}
+@media (max-width: 700px) {
+    .uploadIncontainer{
+        width:95%;
+    }
+}

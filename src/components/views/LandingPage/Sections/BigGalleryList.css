@@ -1,0 +1,10 @@
+.BigGalleryContainer{
+    height:700px;
+    background-color:#060b26;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.middle{
+    flex-direction: column;
+}

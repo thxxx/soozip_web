@@ -1,0 +1,71 @@
+
+@font-face {
+  font-family: 'EliceBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.footer{
+  background-color:rgba(255, 255, 255, 0);
+  height:100px;
+  display: flex;
+  justify-content : center;
+  align-items : center;
+  color:rgb(131, 131, 131);
+  font-weight:400;
+  flex-direction: column;
+  width:100%
+}
+.footer-item{
+  margin-top:10px;
+  width:100%;
+  display: flex;
+  justify-content : center;
+  align-items : center;
+}
+.insta{
+  color:rgb(131, 131, 131);
+  text-decoration: none;
+}
+.insta:hover{
+  color:rgb(50,50,50);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
