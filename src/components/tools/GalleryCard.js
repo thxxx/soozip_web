@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const GalleryCard = ({data}) => {
 
     return (
-        <div className="container">
+        <div className="gallery-card-container" style={{background:`linear-gradient(to right, white 60%, ${data.color})`}}>
             <Link to={{
                 pathname:`/gallery/${data.id}`,
                 state:{
@@ -20,7 +20,7 @@ const GalleryCard = ({data}) => {
                         <span className="gallery-card-type">{item}</span>
                     )
                 })}
-            </div>
+            </div>   
             <div className="titlecon">
                 <p>{data.galleryName}</p>
             </div>

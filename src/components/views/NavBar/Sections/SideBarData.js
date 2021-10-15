@@ -23,13 +23,13 @@ export const SideBarData = [
         cName: 'nav-text'
     },
     {
-        title:'의견 및 오류 제보',
-        path:'/reports',
+        title:'내 정보 수정하기',
+        path:'/update',
         icon: "📑",
         cName: 'nav-text'
     },
     {
-        title:'이메일 문의하기',
+        title:'의견 제공 및 문의하기',
         path:'/help',
         icon: "🙋🏻",
         cName: 'nav-text'

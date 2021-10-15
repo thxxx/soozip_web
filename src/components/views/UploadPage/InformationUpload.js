@@ -8,11 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select'
 import {types} from '../../tools/types'
 import {typeSelect} from '../../tools/types'
+import {categories} from '../../tools/types'
+
 
 const InformationUpload = ({userObj}) =>  {
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
     const [type, setType] = useState("")
+    const [category, setCategory] = useState("")
 
     const submit = async (e) => {
         e.preventDefault();
@@ -31,7 +34,8 @@ const InformationUpload = ({userObj}) =>  {
             like_num:0,
             comment_num:0,
             displayName:userObj.displayName,
-            type:type
+            type:type,
+            category:category,
         };
 
         await dbService.collection("informations").add(InformationOne);
@@ -46,12 +50,12 @@ const InformationUpload = ({userObj}) =>  {
         <div className="uploadcontainer">
             <div className="uploadIncontainer">
                 <form onSubmit={submit}>
-                    <p className="thanks"> 내 컬렉션 등록하기 </p>
-                    <p className="add-thanks">나만의 소중한 컬렉션을 남들과 공유해보세요</p>
+                    <p className="thanks"> 🍯 꿀팁 공유하기 </p>
+                    <p className="add-thanks">어디서도 찾기힘든 정보를 다른사람들과 공유하세요</p>
                     <p className="inputLabel">제목</p>
-                    <input autoSize={{ minRows: 1, maxRows: 2 }} placeholder="이름" className="nameInput" value={title} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
+                    <input autoSize={{ minRows: 1, maxRows: 2 }} placeholder="이름" className="nameInput1" value={title} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
 
-                    <p className="inputLabel">컬렉션에 대한 나만의 설명을 적어주세요</p>
+                    <p className="inputLabel">내용</p>
                     <textarea 
                         className="nameInput" 
                         value={desc} 
@@ -59,9 +63,15 @@ const InformationUpload = ({userObj}) =>  {
                         placeholder="설명을 작성해주세요"
                         style={{paddingTop:'10px'}}
                     ></textarea>
-                    <div style={{marginTop:'5%'}}>
-                    <p className="inputLabel" style={{fontSize:"15px"}}>컬렉션의 종류를 선택해주세요</p>
-                        <Select options={typeSelect} onChange={e => {setType(e.label); console.log(e.label)}} style={{color:'black'}}/>
+                    <div className="selections">
+                        <div style={{width: '49%', marginTop:'-10px'}}>
+                            <p className="input-label-select" style={{fontSize:"15px"}}>컬렉션의 종류를 선택해주세요</p>
+                            <Select options={typeSelect} onChange={e => {setType(e.label); console.log(e.label)}} style={{color:'black'}}/>
+                        </div>                  
+                        <div style={{width: '49%', marginTop:'-10px', marginLeft:'1%'}}>
+                            <p className="input-label-select" style={{fontSize:"15px"}}>정보의 종류를 선택해주세요</p>
+                            <Select options={categories} onChange={e => {setCategory(e.label); console.log(e.label)}} style={{color:'black'}}/>
+                        </div>
                     </div>
 
                     <div>

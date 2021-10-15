@@ -1,36 +1,40 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
-import GalleryCard from '../../tools/GalleryCard'
+import InformationCard from '../LandingPage/Sections/InformationCard'
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import { dbService } from '../../tools/fbase';
 import { types } from '../../tools/types'
+import { categorieslist } from '../../tools/types'
 import Button from '@mui/material/Button';
 import {firebaseInstance, authService, GoogleAuthProvider} from '../../tools/fbase';
 import './All.css'
 
-function AllGalleries() {
-    const [galleries, setGalleries] = useState([]);
+function AllInformations() {
+    const [informations, setInformations] = useState([]);
     const [type, setType] = useState("전체");
+    const [category, setCategory] = useState("전체");
     const [loading, setLoading] = useState(false);
 
-    const getAllCollections = async () => {
-        const galleryDatas = await dbService
-            .collection("users")
-            .orderBy("like_num", "desc")
-            .limit(12)
+    const getAllInformations = async () => {
+        const infoDatas = await dbService
+            .collection("informations")
             .get(); // uid를 creatorId로 줬었으니까.
-        let galleryData = galleryDatas.docs.map(doc => {
+
+        let infoData = infoDatas.docs.map(doc => {
             return({...doc.data(), id:doc.id})
         });
+
         if(type==="전체"){
-            setGalleries(galleryData.slice(0,6));
+            setInformations(infoData);
         }else{
-            galleryData = galleryData.filter(item => item.typess.includes(type) || item.typess.includes("전체"))
-            setGalleries(galleryData.slice(0,6));
+            infoData = infoData.filter(item => item.type === type || item.type === "전체")
+            setInformations(infoData);
         }
+        
         setLoading(true);
     }
+
 
 
     const typeTable = types.map((item, index) => {
@@ -44,16 +48,27 @@ function AllGalleries() {
             </div>
         )
     })
+    const categoryTable = categorieslist.map((item, index) => {
+        let backColor = "#060b26"
+        if(item === category){
+            backColor = "#ff0000"
+        }
+        return(
+            <div className="typeOne" key={index} style={{backgroundColor: `${backColor}`}}>
+                <Button onClick={() => {setCategory(item);}} style={{color:'white', fontSize:'12px'}}>{item}</Button>
+            </div>
+        )
+    })
 
     useEffect(() => {
-        getAllCollections();
+        getAllInformations();
     },[type])
 
-    const galleryTable = galleries.map((item, index) => {
+    const informationTable = informations.map((item, index) => {
         return(
-            <GalleryCard data={item} key={index}/>
-            )
-        })
+            <InformationCard data={item} key={index} />
+        )
+    })
 
     if(loading){
         return (
@@ -69,10 +84,14 @@ function AllGalleries() {
                 {typeTable}
             </div>
 
+            <div className="type-table23" style={{backgroundColor:'rgba(0,0,0,0)'}}>
+                {categoryTable}
+            </div>
+
 
             <div className="qna-table-container">
                 <div className="landing-qna-table">
-                    {galleryTable}
+                    {informationTable}
                 </div>
             </div>
 
@@ -87,4 +106,4 @@ function AllGalleries() {
     }
 }
 
-export default AllGalleries
+export default AllInformations

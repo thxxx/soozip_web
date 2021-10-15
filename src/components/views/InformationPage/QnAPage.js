@@ -5,6 +5,7 @@ import {Input} from 'antd'
 import { dbService } from '../../tools/fbase';
 import {authService} from '../../tools/fbase';
 import CommentContainer from '../../tools/CommentContainer';
+import { Link } from 'react-router-dom'
 
 const QnAPage = (props) => {
     const User = authService.currentUser;
@@ -14,11 +15,22 @@ const QnAPage = (props) => {
     const [loading, setLoading] = useState(false);
 
     const getThisQnA = async () => {
+        let data;
         const dbqna = await dbService
         .collection("qnas")
         .doc(props.match.params.id)
         .get()
-        .then(snapshot => setQna({...snapshot.data(), id:snapshot.id}))
+        .then(snapshot => data = {...snapshot.data(), id:snapshot.id})
+
+        const dbgallery = await dbService
+            .collection("users")
+            .where("userId", "==", data.creatorId)
+            .get()
+        
+        let dbgal = dbgallery.docs.map(doc => {return({...doc.data(), gal_id:doc.id})})
+        
+        setQna({...data, galId:dbgal[0].gal_id, galleryName:dbgal[0].galleryName, displayName:dbgal[0].displayName})
+
         setLoading(true);
         //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
     }
@@ -63,7 +75,9 @@ const QnAPage = (props) => {
                     <div className="box-body">{qna.desc}</div>
                 </div>
                 <div className="info-container">
-                    <span className="galleryName">{info.galleryName}</span>
+                    <Link to={{
+                        pathname:`/gallery/${qna.galId}`
+                    }} className="galleryName">{info.galleryName}</Link>
                     <span className="displayName">{info.displayName} 님의 질문</span>
                 </div>
             </div>

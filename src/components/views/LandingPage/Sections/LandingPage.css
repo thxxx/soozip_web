@@ -16,22 +16,23 @@
 }
 
 .upload-button{
-  width:210px;
-  height:80px;
-  background-color:white;
-  border-radius: 45px;
-  border: 1px solid #47b9ff;
+  width:100px;
+  height:60px;
+  background-color:#060b26;
+  border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(25,25,25,0.4);
   display:flex;
   justify-content:center;
   align-items: center;
   color:#47b9ff;
   font-size:0.8em;
-  font-family: TTTogether;
+  font-family: EliceBold;
   font-weight:200;
   position:fixed;
   bottom:50px;
   right:5%;
+  color:white;
+  /* text-decoration:none; */
 }
 
 .gallery-table{
@@ -39,7 +40,7 @@
 }
 
 .typeOne{
-  width:80px;
+  padding:0px 9px;
   height:30px;
   border-radius:20px;
   display: flex;
@@ -106,7 +107,7 @@
 .qna-table-container{
   margin-top:2%;
   padding-left:3%;
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;

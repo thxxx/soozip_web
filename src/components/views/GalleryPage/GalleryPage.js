@@ -6,6 +6,7 @@ import {authService} from '../../tools/fbase';
 import CollectionList from './Sections/CollectionList';
 import CommentContainer from '../../tools/CommentContainer';
 import * as FaIcons from 'react-icons/fa';
+import Button from '@mui/material/Button';
 import * as AiIcons from 'react-icons/ai';
 
 const GalleryPage = (props) => {
@@ -16,11 +17,22 @@ const GalleryPage = (props) => {
     const [loading, setLoading] = useState(false);
     const [now, setNow] = useState("");
     const User = authService.currentUser;
+    const [open, setOpen] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     const scrollDown = () => {
         // const target = document.getElementById('second')
         targets.current.scrollIntoView({behavior: 'smooth'})
+    }
+
+    const handleOpen = () => {
+        setOpen(true);
         
+    }
+    const handleClose = () => setOpen(false);
+
+    const editOpen = () => {
+        setIsEditing(!isEditing);
     }
 
     // useEffect안에서 async를 하기 위해서 이렇게 따로 함수로 빼서 한다.
@@ -105,6 +117,13 @@ const GalleryPage = (props) => {
     return (
         <div className="gallery-container" style={{ background:`linear-gradient(to right, ${item.left_color} 30%, ${item.right_color})`}}>
             <div className="gallery-header">
+                { User ? item.userId === User.uid && 
+                <span className="if-my-gallery">
+                    이곳은 내 갤러리 입니다.
+                    { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : 
+                    <Button onClick={editOpen} style={{backgroundColor:'red'}}>컬렉션 삭제하기</Button>}
+                </span> : null
+                }
                 <span className="gallery-owner" style={{backgroundColor:`${item.color}`}}>
                     <div>
                         <span className="font">{item.displayName}</span>님의 공간입니다.
@@ -128,7 +147,7 @@ const GalleryPage = (props) => {
                 </div>
             </div>
             <div className="collection-list">
-                <CollectionList collections={collections} mainColor={"rgba(0,0,0,0)"}/>
+                <CollectionList collections={collections} mainColor={"rgba(0,0,0,0)"} isEditing={isEditing}/>
             </div>
             {/* 비슷한 갤러리 추천 공간 */}
             <div>

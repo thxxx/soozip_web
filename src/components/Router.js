@@ -17,10 +17,13 @@ import LikePage from './views/LikePage/LikePage'
 import AllCollections from './views/AllPages/AllCollections'
 import AllGalleries from './views/AllPages/AllGalleries'
 import AllQnAs from './views/AllPages/AllQnAs'
+import AllInformations from './views/AllPages/AllInformations'
+
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 
 const AppRouter = ({isLoggedIn, userObj}) => {
+    console.log("유저 오비제이22", userObj)
 return(
     <Router history={history}>
         <Switch>
@@ -31,6 +34,9 @@ return(
                     <LandingPage isLoggedIn={isLoggedIn} userObj={userObj}/>
                 </Route>
                 <Route exact path="/profile">
+                    <ProfilePage userObj={userObj}/>
+                </Route>
+                <Route exact path="/update">
                     <ProfilePage userObj={userObj}/>
                 </Route>
                 <Route exact path="/upload">
@@ -44,10 +50,8 @@ return(
                 </Route>
                 <Route exact path="/gallery/:id" component={ GalleryPage } />
                 <Route exact path="/QnAPage/:id" component={QnAPage} />
+                <Route exact path="/InformationPage/:id" component={InformationPage} />
                 
-                <Route exact path="/InformationPage">
-                    <InformationPage />
-                </Route>
                 <Route exact path="/CollectionPage/:id" component={ CollectionPage } />
                 <Route excct path="/mylikes" component={LikePage} />
                 <Route exact path="/allcollections">
@@ -58,6 +62,9 @@ return(
                 </Route>
                 <Route exact path="/allqnas">
                     <AllQnAs />
+                </Route>
+                <Route exact path="/allinformations">
+                    <AllInformations />
                 </Route>
             </div>
             {/* <Footer /> */}

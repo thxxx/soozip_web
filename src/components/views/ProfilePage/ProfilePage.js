@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {app, authService} from '../../tools/fbase';
 import {dbService } from '../../tools/fbase'
-import {useHistory} from 'react-router-dom'
-import CollectionList from '../GalleryPage/Sections/CollectionList';
 import MakeGallery from './Sections/MakeGallery';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Input from '@mui/material/Input';
-import './Sections/ProfilePage.css'
+import {useHistory} from 'react-router-dom'
+import Select from 'react-select'
+import {typeSelect} from '../../tools/types'
+import makeAnimated from 'react-select/animated';
+import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import './Sections/MakeGallery.css'
 
 const style = {
     position: 'absolute',
@@ -33,20 +31,28 @@ const ProfilePage = (props) => {
     const [galleryName, setGalleryName] = useState("");
     const [galleryDesc, setGalleryDesc] = useState("");
     const [galleryColor, setGalleryColor] = useState("");
+    const [galleryLeftColor, setGalleryLeftColor] = useState("");
+    const [galleryRightColor, setGalleryRightColor] = useState("");
     const [galleryTypes, setGalleryTypes] = useState([]);
     const [hasGallery, setHasGallery] = useState(true);
     const [loading, setLoading] = useState(false);
     const [myCollections, setMyCollections] = useState([]);
     const [myGallery, setMyGallery] = useState([]);
     const [open, setOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const [update, setUpdate] = useState(false);
+    const [typess, setTypess] = useState([]);
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [showemoji, setShowemoji] = useState("none");
     
-    const handleOpen = () => {
-        setOpen(true);
-        
+    const onEmojiClick = (event, emojiObject) => {
+        setChosenEmoji(emojiObject);
+        setGalleryName(emojiObject.emoji + galleryName);
+      };
+
+    const showEmojiSelect = () => {
+        if(showemoji === 'none') {setShowemoji('flex')}
+        else{setShowemoji('none')}
     }
-    const handleClose = () => setOpen(false);
 
     const getMyCollections = async () => {
         const mydatas = await dbService
@@ -71,6 +77,8 @@ const ProfilePage = (props) => {
             setGalleryDesc(myGallery[0].desc);
             setGalleryColor(myGallery[0].color);
             setGalleryTypes(myGallery[0].typess);
+            setGalleryLeftColor(myGallery[0].left_color);
+            setGalleryRightColor(myGallery[0].right_color);
         }else{
             setMyCollections([]);
         }
@@ -100,70 +108,89 @@ const ProfilePage = (props) => {
             displayName:userName
         })
         alert("수정이 완료되었습니다!")
-        handleClose();
         setUpdate(!update);
     }
 
-    const editOpen = () => {
-        setIsEditing(!isEditing);
+
+    const changeTypes = e => {
+        let tts = [];
+        e.forEach(i => {
+            tts.push(i.label)
+        });
+
+        setTypess(tts)
     }
 
     if(hasGallery){
         if(loading){
             return (
-                <div>
-                    <CollectionList collections={myCollections} isEditing={isEditing}/>
-                    <Button onClick={handleOpen}>갤러리 수정하기</Button>
-                    { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : 
-                    <Button onClick={editOpen} style={{backgroundColor:'red'}}>삭제하기</Button>}
-                    
-                    <div className="galleryInfo">
-                        프로필 
-                        <p>
-                        유저 명 : {User.displayName}
-                        </p>
-                        <p>
-                        유저 이메일 : {User.email}
-                        </p>
-                        <p>
-                        갤러리 : {myGallery.galleryName}
-                        </p>
-                        <p>
-                        갤러리 설명 : {myGallery.desc}
-                        </p>
-                        <img src={User.photoURL} />
-                    </div>
+                <div className="uploadcontainer">
+                    <div className="uploadIncontainer">
+                        <form onSubmit={changeGalleryInto}>
+                            <p className="thanks"> 갤러리 정보 수정하기 </p>
+                            <p className="add-thanks">내 정보 및 갤러리 정보 수정</p>
 
-                    {/* 아래는 수정용 모달. */}
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                    <form onSubmit={changeGalleryInto}>
-                        <Box sx={style}>
-                        <div className="update-body">
-                            <p className="starbucks">
-                            <span style={{fontSize:19}}>☕️</span> 5분을 선정해서 스타벅스 기프티콘을 드립니다.
-                            </p>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                이메일을 입력해주세요.
-                            </Typography>
-                            <input type="text" placeholder="My Name" value={userName} onChange={e => setUserName(e.target.value)}/>
-                            <input type="text" placeholder="Gallery Name" value={galleryName} onChange={e => setGalleryName(e.target.value)}/>
-                            <input type="text" placeholder="갤러리 설명" value={galleryDesc} onChange={e => setGalleryDesc(e.target.value)}/>
-                            <input type="color" placeholder="갤러리 색" value={galleryColor} onChange={e => setGalleryColor(e.target.value)}/>
-                        </div>
-                        <div style={{marginTop:10}}>
-                        <input type="submit" style={{backgroundColor:'#47b9ff', marginLeft:10, color:'white', width:'20%'}}  value="확인"/>
-                        <Button onClick={handleClose} style={{ marginLeft:10, color:'black', width:'10%'}}>
-                            닫기
-                        </Button>
-                        </div>
-                        </Box>
-                    </form>
-                    </Modal>
+        
+                            <p className="inputLabel">닉네임을 설정하세요</p>
+                            <input 
+                                className="nameInput" 
+                                value={userName} 
+                                onChange={(e) => {setUserName(e.currentTarget.value)}}
+                                autoSize={{ minRows: 3, maxRows: 5 }}
+                                placeholder="닉네임 설정하기"
+                            ></input>
+
+                            <p className="inputLabel">갤러리 이름</p>
+                            <p className="inputLabel">ex. 🗽방구석 호그와트</p>
+        
+                            <div style={{display:`${showemoji}`}}>
+                                <Picker
+                                    onEmojiClick={onEmojiClick}
+                                    disableAutoFocus={true}
+                                    groupNames={{ smileys_people: "PEOPLE" }}
+                                    native
+                                />
+                            </div>
+                            <span onClick={showEmojiSelect} className="emojiSelect" >이모지 선택</span>
+                            <input autoSize={{ minRows: 1, maxRows: 2 }} placeholder="갤러리 이름" 
+                                className="nameInput" 
+                                value={galleryName} 
+                                onChange={(e) => {setGalleryName(e.currentTarget.value)}}>
+                            </input>
+        
+                            <p className="inputLabel">컬렉션에 대한 나만의 설명을 적어주세요</p>
+                            <input 
+                                className="nameInput" 
+                                value={galleryDesc} 
+                                onChange={(e) => {setGalleryDesc(e.currentTarget.value)}}
+                                autoSize={{ minRows: 3, maxRows: 5 }}
+                                placeholder="설명을 작성해주세요"
+                            ></input>
+                            <div style={{marginTop:'10%'}}>
+                            <p className="inputLabel" style={{fontSize:"15px"}}>갤러리의 타입을 선택해주세요</p>
+                            {/* <Select
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                options={typeSelect} 
+                                onChange={changeTypes}
+                                isMulti
+                            /> */}
+                                {/* <Select options={types} onChange={e => {setType(e.label); console.log(e.label)}} /> */}
+                            </div>
+                            <div style={{marginTop:'10%'}}>
+                                <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 메인 색상을 정해보세요</p>
+                                <input type="color" value={galleryColor} onChange={e => setGalleryColor(e.currentTarget.value)}/>
+                            </div>
+                            <div style={{marginTop:'10%'}}>
+                                <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 배경 색상을 정해보세요</p>
+                                <input type="color" value={galleryLeftColor} onChange={e => setGalleryLeftColor(e.currentTarget.value)}/>
+                                <input type="color" value={galleryRightColor} onChange={e => setGalleryRightColor(e.currentTarget.value)}/>
+                            </div>
+                            <div>
+                            <button className="inputButton" onClick={changeGalleryInto}>등록하기</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )
         }else{

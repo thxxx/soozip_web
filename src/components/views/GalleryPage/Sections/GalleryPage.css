@@ -17,6 +17,18 @@
     font-style: normal;
 }
 
+.if-my-gallery{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: row;
+    margin-top:1%;
+    width:500px;
+    height:60px;
+    border-radius:15px;
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.5);
+}
+
 .gallery-container{
     display: flex;
     justify-content:center;

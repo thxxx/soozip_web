@@ -2,20 +2,50 @@ import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {Input} from 'antd'
-import { dbService } from './fbase';
-import {authService} from './fbase';
+import {authService, firebaseInstance, dbService} from './fbase';
 import './CommentContainer.css'
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    borderRadius: '15px',
+    border: '1px solid rgba(0,0,0,0.1)',
+    boxShadow: 24,
+    p: 4,
+};
 
 const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
     const [update, setUpdate] = useState(false);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [gid, setGid] = useState("");
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const User = authService.currentUser;
 
     useEffect(() => {
         getThisComments();
     },[update])
+
+    const handleOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => setOpen(false);
+
+
+    const onSocialClick = async (e) => {
+        //지금은 구글 로그인 밖에 없기때문에 굳이 구분하는 flow를 만들지 않는다.
+        let provider = new firebaseInstance.auth.GoogleAuthProvider();
+        const data = await authService.signInWithPopup(provider);
+        handleClose();
+    }
 
     const getThisComments = async () => {
         let dbcomments;
@@ -39,7 +69,6 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                 break;
             }
             case "qna_comments":{
-                console.log(category, " 입니다.")
                 dbcomments = await dbService
                 .collection(category)
                 .where("qnaId", "==", contentId)
@@ -51,7 +80,7 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
             case "i_comments":{
                 dbcomments = await dbService
                 .collection(category)
-                .where("information_id", "==", contentId)
+                .where("informationId", "==", contentId)
                 .orderBy("created", "desc")
                 .get();
                 setComments(dbcomments.docs.map(doc => {return({...doc.data(), id:doc.id})}));
@@ -62,10 +91,12 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
 
     const uploadComment = async () => {
         // 로그인 한 유저여야 한다.
+        if(!User){
+            handleOpen();
+            return;
+        }
 
         const [usersId, galleryName, galleryColor] = await getCommenterGalleryId(User.uid)
-
-        console.log(usersId, galleryName)
 
         switch(category){
             case "c_comments":{
@@ -116,6 +147,28 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                 break;
             }
             case "i_comments":{
+                const commentOne = {
+                    creatorId:User.uid,
+                    comment:comment,
+                    displayName:User.displayName,
+                    created:Date.now(),
+                    like_num:0,
+                    informationId:contentId,
+                    galleryId:usersId, // 댓글을 작성한 유저가 소유한 갤러리 아이디.
+                    galleryName,
+                    galleryColor
+                };
+
+                if(comment.length < 3){
+                    alert("3글자 이상 입력하셔야 합니다.")
+                    return;
+                }
+
+                await dbService.collection("i_comments").add(commentOne)
+                    .then((docRef) => {console.log("이걸로 함", docRef.id)});
+                await dbService.doc(`informations/${contentId}`).update({
+                    comment_num:contentLikeNum + 1,
+                });
                 
                 break;
             }
@@ -130,7 +183,6 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                     galleryId:usersId, // 댓글을 작성한 유저가 소유한 갤러리 아이디.
                     galleryName,
                     galleryColor
-
                 };
 
                 if(comment.length < 3){
@@ -161,7 +213,6 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
             .where("qnaId", "==", item.id)
             .get();
         const db_like = dbLike.docs.map(doc => {return({...doc.data(), id:doc.id})});
-        console.log("dbLike", db_like)
 
         if(db_like.length === 0){
             const likeOne = {
@@ -177,7 +228,6 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
             setUpdate(!update);
         }else{
             const ok = window.confirm("이미 좋아요를 누르셨습니다. 취소하시겠습니까?");
-            console.log(db_like[0].id);
             
             if(ok){
                 await dbService.doc(`qna_comments_like/${db_like[0].id}`).delete();
@@ -212,6 +262,9 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                     break;
                 }
                 case "i_comments":{
+                    await dbService.doc(`informations/${contentId}`).update({
+                        comment_num:contentLikeNum - 1,
+                    });
                     break;
                 }
             }
@@ -306,10 +359,11 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
     return (
         <div className="comment-container">
             <div className="comment-body-container">
-                {category === "g_comments" ? 
-                <div className="comment-title">
-                    <span style={{fontSize:'18px', color:'green'}}>갤러리 방명록</span>    공간에 대한 감상평을 남겨보세요!
-                </div> : null}
+                { category === "g_comments" ? 
+                    <div className="comment-title">
+                        <span style={{fontSize:'18px', color:'green'}}>갤러리 방명록</span>    공간에 대한 감상평을 남겨보세요!
+                    </div> : null
+                }
                 <div className="comment-input-container">
                     <Input value={comment} onChange={e => setComment(e.currentTarget.value)} placeholder="댓글을 입력하세요." className="comment-input"/>
                     <span className="comment-send" onClick={uploadComment} >
@@ -320,6 +374,31 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                     {commentTable}
                 </div>
             </div>
+
+            {/* 아래는 수정용 모달. */}
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                <div className="update-body">
+                    <span style={{width: '100%'}}>
+                    <p className="login-desc">3초만에 로그인하고 시작하기</p>
+
+                    </span>
+                    <span style={{width: '100%'}}>
+                        <button onClick={onSocialClick} className="google-login">Google 로그인</button>
+                    </span>
+                    <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
+                    <Button onClick={handleClose} style={{ marginLeft:10, color:'black',backgroundColor:'#993333', width:'10%'}}>
+                        닫기
+                    </Button>
+                    </div>
+                </div>
+                </Box>
+            </Modal>
         </div>
     )
 }

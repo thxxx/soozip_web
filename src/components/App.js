@@ -6,7 +6,7 @@ import LandingPage from './views/LandingPage/LandingPage';
 import GalleryPage from './views/GalleryPage/GalleryPage';
 import NavBar from './views/NavBar/NavBar';
 import AppRouter from './Router';
-import {app, authService} from './tools/fbase';
+import {app, authService, dbService} from './tools/fbase';
 import * as AiIcons from 'react-icons/ai';
 
 function App() {
@@ -15,18 +15,32 @@ function App() {
   // firebase가 유저를 읽어오기까지 기다려야 한다.
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  const [gid, setGid] = useState("");
+
+  const getMyGallery = async (user) => {
+
+    const dbgallery = await dbService
+      .collection("users")
+      .where("userId", "==", user.uid)
+      .get()
+
+    let dbgal = [{gal_id:1}]
+    dbgal = dbgallery.docs.map(doc => {return({...doc.data(), gal_id:doc.id})})
+    setUserObj({...user, gal_id:dbgal[0].gal_id})
+    setInit(true);
+  }
 
   useEffect(() => {
     //Add observers for changes to the user's sign-in state.
     authService.onAuthStateChanged((user) => {
       if(user){
         setIsLoggedIn(true);
-        setUserObj(user);
+        getMyGallery(user);
       }else{
         setIsLoggedIn(false);
-        setUserObj(user);
+        setUserObj({...user, gal_id:1});
+        setInit(true);
       }
-      setInit(true);
     });
   }, [])
   

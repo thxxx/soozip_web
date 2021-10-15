@@ -8,9 +8,30 @@ const OneCollection = ({item,isOwner, isEditing}) => {
     const onClickDelete = async () => {
         const ok = window.confirm("Are you sure you want to delete?");
         if(ok){
+
+            const dbgallery = await dbService
+            .collection("users")
+            .where("userId", "==", item.creatorId)
+            .get()
+            
+            let dbgal = dbgallery.docs.map(doc => {return({...doc.data(), gal_id:doc.id})})
+
+            // collection 수도 1 낮추고
+            await dbService.doc(`users/${dbgal[0].gal_id}`)
+            .update({
+                collection_num:dbgal.collection_num - 1
+            })
+
+            // 댓글 목록에서도 지워야한다.
+            
+
             //delete 파일도 같이 지워져야만 한다.
             await dbService.doc(`collections/${item.id}`).delete();
-            await stService.refFromURL(item.attachmentURL).delete(); // URL만 가지고도 refence를 획들할 수 있게 해준다.
+            await stService.refFromURL(item.attachmentURL).delete(); // URL만 가지고도 refence를 획득할 수 있게 해준다.
+
+            // like에서도 지워야됨.
+
+            alert("삭제했습니다.")
         }else{
 
         }

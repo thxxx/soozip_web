@@ -30,7 +30,6 @@ const NavBar = ({isLoggedIn, userObj}) => {
 
     const handleOpen = () => {
         setOpen(true);
-        
     }
 
     const handleClose = () => setOpen(false);
@@ -89,6 +88,17 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                             {item.icon}
                                             <span style={{color:'white'}}>{item.title}</span>
                                         </span>
+                                    </li>
+                                )
+                            }else if(isLoggedIn && item.title === "내 갤러리"){
+                                return(
+                                    <li key={index} className={item.cName}>
+                                        <Link to={{
+                                            pathname:`/gallery/${userObj.gal_id}`
+                                        }}>
+                                            {item.icon}
+                                            <span>{item.title}</span>
+                                        </Link>
                                     </li>
                                 )
                             }else{

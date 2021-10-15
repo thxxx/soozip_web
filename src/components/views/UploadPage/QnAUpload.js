@@ -7,15 +7,7 @@ import { stService } from '../../tools/fbase'
 import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select'
 import {typeSelect} from '../../tools/types'
-
-const categories = [
-    {value:"buy", label:"📦 구매"}, 
-    {value:"sell", label:"💰 판매"}, 
-    {value:"keep", label:"🧺 보관"}, 
-    {value:"real", label:"🤦🏻‍♂️ 정품"}, 
-    {value:"foriegn", label:"🛩 해외거래"}, 
-    {value:"etc", label:"🥪 기타정보"}
-]
+import {categories} from '../../tools/types'
 
 const QnAUpload = ({userObj}) =>  {
     const [title, setTitle] = useState("")
