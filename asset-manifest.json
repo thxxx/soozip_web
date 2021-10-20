@@ -1,23 +1,18 @@
 {
   "files": {
-    "main.css": "/soozip_web/static/css/main.d6200907.chunk.css",
-    "main.js": "/soozip_web/static/js/main.e6fb7f7b.chunk.js",
-    "main.js.map": "/soozip_web/static/js/main.e6fb7f7b.chunk.js.map",
+    "main.css": "/soozip_web/static/css/main.68df5256.chunk.css",
+    "main.js": "/soozip_web/static/js/main.2a5056a1.chunk.js",
     "runtime-main.js": "/soozip_web/static/js/runtime-main.d0b1ef2b.js",
-    "runtime-main.js.map": "/soozip_web/static/js/runtime-main.d0b1ef2b.js.map",
-    "static/js/2.7d2a7389.chunk.js": "/soozip_web/static/js/2.7d2a7389.chunk.js",
-    "static/js/2.7d2a7389.chunk.js.map": "/soozip_web/static/js/2.7d2a7389.chunk.js.map",
+    "static/js/2.2c24990d.chunk.js": "/soozip_web/static/js/2.2c24990d.chunk.js",
     "static/js/3.d6d75898.chunk.js": "/soozip_web/static/js/3.d6d75898.chunk.js",
-    "static/js/3.d6d75898.chunk.js.map": "/soozip_web/static/js/3.d6d75898.chunk.js.map",
     "index.html": "/soozip_web/index.html",
-    "static/css/main.d6200907.chunk.css.map": "/soozip_web/static/css/main.d6200907.chunk.css.map",
-    "static/js/2.7d2a7389.chunk.js.LICENSE.txt": "/soozip_web/static/js/2.7d2a7389.chunk.js.LICENSE.txt",
+    "static/js/2.2c24990d.chunk.js.LICENSE.txt": "/soozip_web/static/js/2.2c24990d.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/soozip_web/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d0b1ef2b.js",
-    "static/js/2.7d2a7389.chunk.js",
-    "static/css/main.d6200907.chunk.css",
-    "static/js/main.e6fb7f7b.chunk.js"
+    "static/js/2.2c24990d.chunk.js",
+    "static/css/main.68df5256.chunk.css",
+    "static/js/main.2a5056a1.chunk.js"
   ]
 }
