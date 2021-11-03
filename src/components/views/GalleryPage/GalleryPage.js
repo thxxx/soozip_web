@@ -8,6 +8,7 @@ import CommentContainer from '../../tools/CommentContainer';
 import * as FaIcons from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import * as AiIcons from 'react-icons/ai';
+import {Link} from 'react-router-dom'
 
 const GalleryPage = (props) => {
     const targets = useRef(null);
@@ -120,8 +121,11 @@ const GalleryPage = (props) => {
                 { User ? item.userId === User.uid && 
                 <span className="if-my-gallery">
                     이곳은 내 갤러리 입니다.
-                    { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : 
-                    <Button onClick={editOpen} style={{backgroundColor:'red'}}>컬렉션 삭제하기</Button>}
+                    { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : <>
+                        <span onClick={editOpen} className="collection-delete-button">컬렉션 삭제하기</span>
+                        <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>갤러리 정보수정</Link>
+                        </>
+                    }
                 </span> : null
                 }
                 <span className="gallery-owner" style={{backgroundColor:`${item.color}`}}>
@@ -135,7 +139,7 @@ const GalleryPage = (props) => {
                 <div className="title-info">
                     <p><span>{item.collection_num}개의 컬렉션이 전시되어있고 </span><span> {item.like_num}명이 좋아합니다. </span><span s tyle={{marginLeft:'10%'}}> {item.comment_num}개의 댓글</span></p>
                 </div>
-                <div className="type-table">
+                <div className="gallery-type-table">
                     {loading && item.typess.map((item, index) => {
                         return (
                             <span key={index} className="tag">{item}</span>
@@ -159,15 +163,14 @@ const GalleryPage = (props) => {
 
             <div ref={targets} ></div>
 
-            { loading && <CommentContainer category="g_comments" contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} />}
+            { loading && <CommentContainer category="g_comments" contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
             
             <span className="side-actions">
                 <span className="action-component" onClick={addLike}>
                     <FaIcons.FaRegHeart color="5555ff" size="30px"/>
                     <span className="num">{item.like_num}</span>
                 </span>
-                <span className="action-component" onClick={scrollDown}>👁‍🗨 {item.comment_num}</span>
-                <span className="action-component">✉️</span>
+                <span className="action-component" onClick={scrollDown}>댓글 {item.comment_num}</span>
             </span>
         </div>
     )

@@ -20,13 +20,11 @@ const style = {
     p: 4,
 };
 
-const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
+const CommentContainer = ({category, contentId, userId, contentLikeNum, displayName}) => {
     const [update, setUpdate] = useState(false);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
-    const [gid, setGid] = useState("");
     const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
     const User = authService.currentUser;
 
     useEffect(() => {
@@ -267,6 +265,12 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
                     });
                     break;
                 }
+                case "qna_comments":{
+                    await dbService.doc(`qnas/${contentId}`).update({
+                        comment_num:contentLikeNum - 1,
+                    });
+                    break;
+                }
             }
             alert("삭제 했습니다. ");
             setUpdate(!update);
@@ -361,7 +365,7 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum}) => {
             <div className="comment-body-container">
                 { category === "g_comments" ? 
                     <div className="comment-title">
-                        <span style={{fontSize:'18px', color:'green'}}>갤러리 방명록</span>    공간에 대한 감상평을 남겨보세요!
+                        <span style={{fontSize:'18px', color:'green'}}>{displayName}</span>님의 공간에 대한 감상평을 남겨보세요!
                     </div> : null
                 }
                 <div className="comment-input-container">

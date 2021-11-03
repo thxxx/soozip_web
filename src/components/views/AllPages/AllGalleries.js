@@ -59,9 +59,11 @@ function AllGalleries() {
         return (
             <div className="landingcontainer">
             <div className="all-table-title">
-                    <span>전체 갤러리들 입니다</span>
+                    <span>전체 갤러리</span>
+                    <span style={{fontSize:'18px'}}>soozip가들 각각의 개성 넘치는 갤러리를 감상해보세요. </span>
             </div>
-
+            <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>
+            </div>
             <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>
                 원하는 카테고리를 골라보세요.
             </div>

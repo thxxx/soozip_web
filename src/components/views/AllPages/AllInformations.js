@@ -25,10 +25,17 @@ function AllInformations() {
             return({...doc.data(), id:doc.id})
         });
 
-        if(type==="전체"){
+        if(type==="전체" && category === "전체"){
+            setInformations(infoData);
+        }else if(type !== "전체" && category === "전체"){
+            infoData = infoData.filter(item => item.type === type || item.type === "전체")
+            setInformations(infoData);
+        }else if(type === "전체" && category !== "전체"){
+            infoData = infoData.filter(item => item.category === category || item.category === "전체")
             setInformations(infoData);
         }else{
             infoData = infoData.filter(item => item.type === type || item.type === "전체")
+            infoData = infoData.filter(item => item.category === category || item.category === "전체")
             setInformations(infoData);
         }
         
@@ -74,7 +81,8 @@ function AllInformations() {
         return (
             <div className="landingcontainer">
             <div className="all-table-title">
-                    <span>전체 갤러리들 입니다</span>
+                    <span>전체 정보</span>
+                    <span style={{fontSize:'18px'}}>유용한 정보를 soozip가들과 공유해보세요! </span>
             </div>
 
             <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>

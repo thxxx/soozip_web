@@ -78,7 +78,9 @@ const QnAPage = (props) => {
                     <Link to={{
                         pathname:`/gallery/${qna.galId}`
                     }} className="galleryName">{info.galleryName}</Link>
-                    <span className="displayName">{info.displayName} 님의 질문</span>
+                    <Link to={{
+                        pathname:`/gallery/${qna.galId}`
+                    }}  className="displayName">{info.displayName} 님의 질문↗</Link>
                 </div>
             </div>
             {/* 댓글을 달고 보여주는 공간 */}

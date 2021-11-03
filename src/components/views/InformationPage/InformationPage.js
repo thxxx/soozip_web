@@ -102,7 +102,7 @@ const InformationPage = (props) => {
                     <div className="box-body">{information.desc}</div>
                 </div>
                 <div className="num-of-like" >
-                    {information.like_num}명이 유용하다고 평가했습니다.
+                    {information.like_num}명이 이 정보에서 도움을 얻었습니다.
                 </div>
                 <div className="info-container">
                     <span onClick={addLike} className="galleryName">유용한 정보라면 클릭!</span>

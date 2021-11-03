@@ -22,7 +22,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 400,
     bgcolor: 'background.paper',
     borderRadius: '15px',
     border: '1px solid rgba(0,0,0,0.1)',
@@ -270,12 +270,12 @@ const LandingPage = ({isLoggedIn}) => {
 
                     </span>
                     <span style={{width: '100%'}}>
-                        <button onClick={onSocialClick} className="google-login">Google 로그인</button>
+                        <button onClick={onSocialClick} className="google-login"><FaIcons.FaGoogle /> <span> </span> Google 로그인</button>
                     </span>
                     <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
-                    <Button onClick={handleClose} style={{ marginLeft:10, color:'black',backgroundColor:'#993333', width:'10%'}}>
-                        닫기
-                    </Button>
+                    <span onClick={handleClose} className="cancel-button">
+                        취소하기
+                    </span>
                     </div>
                 </div>
                 </Box>
@@ -284,7 +284,10 @@ const LandingPage = ({isLoggedIn}) => {
         </div>
         )
     }else{
-        return(<div>대기</div>)
+        return(
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center', fontSize:'30px', fontFamily:'EliceBold', height:'100%'}}>
+            로딩중
+        </div>)
     }
 
 }

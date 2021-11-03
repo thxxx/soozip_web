@@ -5,8 +5,10 @@
     height:100px;
     font-family: EliceBold;
     color:white;
-    font-size:20px;
+    font-size:21px;
     display:flex;
-    align-items: center;
+    justify-content:center;
     padding-left:3%;
+    flex-direction: column;
+    margin-bottom:1%;
 }

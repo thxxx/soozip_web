@@ -61,7 +61,8 @@
   color:rgba(240,240,240,1);
   padding-left:40px;
   background-color: #060b26;
-  font-size:13px;
+  font-size:15px;
+  font-family: EliceBold;
 }
 
 .typeButton{
@@ -95,6 +96,7 @@
   color:white;
   background-color:#060b26;
   font-size:20px;
+  cursor:pointer;
 }
 
 .login-desc{
@@ -143,4 +145,15 @@
   padding-left:3%;
   text-decoration: none;
   color:black;
+}
+.cancel-button{
+  margin-left:10%;
+  color:rgb(32, 32, 32);
+  width:20%;
+  cursor:pointer;
+  font-size:13px;
+  font-family: EliceRegular;
+}
+.cancel-button:hover{
+  color:rgb(10,10,10);
 }

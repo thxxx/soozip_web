@@ -86,9 +86,18 @@
     justify-content:center;
 }
 
+.gallery-type-table{
+    display: flex;
+    justify-content:start;
+    background-color:rgba(255, 255, 255, 0);
+    align-items: center;
+    flex-direction:row;
+    width:70%;
+}
+
 .galley-info{
     margin-top:1%;
-    width:97%;
+    width:70%;
     padding: 20px 0px;
     background-color:rgb(255, 255, 255);
     border-radius: 5px;
@@ -113,15 +122,6 @@
     font-family: EliceRegular;
     font-size: 14px;
 }
-.type-table{
-    display: flex;
-    justify-content:start;
-    background-color:rgba(255, 255, 255, 0);
-    align-items: center;
-    flex-direction:row;
-    width:100%;
-}
-
 
 .side-actions{
     z-index:1;
@@ -184,4 +184,10 @@
     display: flex;
     justify-content: center;
     margin-left:0px;
+}
+.collection-delete-button{
+    padding:5px 10px;
+    background-color:red;
+    color:white;
+    font-size:12px;
 }

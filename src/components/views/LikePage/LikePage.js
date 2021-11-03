@@ -16,13 +16,16 @@ const LikePage = () => {
         .where("creatorId", "==", User.uid)
         .get();
 
+        let clist = []
+
         let clikeList = dbCollection.docs.map(doc => {return({...doc.data(), id:doc.id})})
         clikeList.map(async (item, index) => {
             await dbService.collection("collections")
             .doc(item.collectionId)
             .get()
-            .then(snapshot => {setClikes([...clikes, {...snapshot.data(), id:snapshot.id}])})
+            .then(snapshot => { clist.push({...snapshot.data(), id:snapshot.id})})
         })
+        setClikes(clist)
     }
     const getGalleryLikes = async () => {
         const dbGallery = await dbService.collection("users_like")

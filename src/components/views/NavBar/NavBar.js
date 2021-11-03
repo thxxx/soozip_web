@@ -91,16 +91,30 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                     </li>
                                 )
                             }else if(isLoggedIn && item.title === "내 갤러리"){
-                                return(
-                                    <li key={index} className={item.cName}>
-                                        <Link to={{
-                                            pathname:`/gallery/${userObj.gal_id}`
-                                        }}>
-                                            {item.icon}
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </li>
-                                )
+                                if(userObj.hasOwnProperty("gal_id")){
+                                    return(
+                                        <li key={index} className={item.cName}>
+                                            <Link to={{
+                                                pathname:`/gallery/${userObj.gal_id}`
+                                            }}>
+                                                {item.icon}
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </li>
+                                    )
+                                }else{
+                                    return(
+                                        <li key={index} className={item.cName}>
+                                            <Link to={{
+                                                pathname:`/profile`
+                                            }}>
+                                                {item.icon}
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </li>
+                                    )
+
+                                }
                             }else{
                                 return (
                                 <li key={index} className={item.cName}>
@@ -113,8 +127,13 @@ const NavBar = ({isLoggedIn, userObj}) => {
                             }
                         })}
                         <li className="nav-text">
-                            <a href="https://naver.com" target="_black">
-                                <AiIcons.AiOutlineInstagram/> Instagram
+                            <a href="https://6cetqycakbc.typeform.com/to/oRcv6Qdu" target="_black">
+                                🙋🏻 <span>의견 제공 및 문의하기</span>
+                            </a>
+                        </li>
+                        <li className="nav-text">
+                            <a href="https://www.instagram.com/soozip_ga/" target="_black">
+                                <AiIcons.AiOutlineInstagram/> <span>Instagram</span>
                             </a>
                         </li>
                     </ul>

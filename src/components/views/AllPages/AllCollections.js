@@ -58,7 +58,8 @@ function AllCollections() {
         return (
             <div className="landingcontainer">
             <div className="all-table-title">
-                    <span>전체 컬렉션들 입니다</span>
+                    <span>전체 컬렉션</span>
+                    <span style={{fontSize:'18px'}}>soozip가들의 추억과 개성이 가득 담긴 컬렉션입니다. </span>
             </div>
 
             <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>

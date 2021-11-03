@@ -38,6 +38,9 @@ const CollectionPage = (props) => {
     },[update])
 
     const addLike = async () => {
+        if(!User){
+            alert("로그인해야 좋아요가 가능합니다.")
+        }
         // 좋아요를 누른 적 있는지 체크해야한다.
         const dbLike = await dbService
             .collection("collections_like")
@@ -88,7 +91,7 @@ const CollectionPage = (props) => {
                     <span className="desc-body">{item.desc}</span>
                     <span className="like-container">
                         <div className="left-like-container">
-                            <span className="more-button">갤러리의 다른 컬렉션 둘러보기</span>
+                            <span className="more-button">{item.displayName}님의 갤러리 둘러보기</span>
                         </div>
                         <span onClick={addLike} className="collection-like-button">
                             <FaIcons.FaRegHeart color="white" size="30px"/>

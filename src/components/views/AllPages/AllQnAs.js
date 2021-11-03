@@ -80,7 +80,8 @@ function AllInformations() {
         return (
             <div className="landingcontainer">
             <div className="all-table-title">
-                    <span>전체 갤러리들 입니다</span>
+                    <span>전체 QnA</span>
+                    <span style={{fontSize:'18px'}}>궁금한 점을 soozip가들에게 질문해보세요! </span>
             </div>
 
             <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>

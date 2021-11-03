@@ -28,10 +28,4 @@ export const SideBarData = [
         icon: "📑",
         cName: 'nav-text'
     },
-    {
-        title:'의견 제공 및 문의하기',
-        path:'/help',
-        icon: "🙋🏻",
-        cName: 'nav-text'
-    },
 ]

@@ -31,8 +31,8 @@ const ProfilePage = (props) => {
     const [galleryName, setGalleryName] = useState("");
     const [galleryDesc, setGalleryDesc] = useState("");
     const [galleryColor, setGalleryColor] = useState("");
-    const [galleryLeftColor, setGalleryLeftColor] = useState("");
-    const [galleryRightColor, setGalleryRightColor] = useState("");
+    const [galleryLeftColor, setGalleryLeftColor] = useState("white");
+    const [galleryRightColor, setGalleryRightColor] = useState("white");
     const [galleryTypes, setGalleryTypes] = useState([]);
     const [hasGallery, setHasGallery] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ const ProfilePage = (props) => {
     const [typess, setTypess] = useState([]);
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [showemoji, setShowemoji] = useState("none");
+    const history = useHistory();
     
     const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
@@ -105,10 +106,13 @@ const ProfilePage = (props) => {
             color:galleryColor,
             desc:galleryDesc,
             galleryName:galleryName,
-            displayName:userName
+            displayName:userName,
+            left_color:galleryLeftColor,
+            right_color:galleryRightColor
         })
         alert("수정이 완료되었습니다!")
         setUpdate(!update);
+        history.push('/');
     }
 
 
@@ -159,13 +163,13 @@ const ProfilePage = (props) => {
                             </input>
         
                             <p className="inputLabel">컬렉션에 대한 나만의 설명을 적어주세요</p>
-                            <input 
+                            <textarea 
                                 className="nameInput" 
                                 value={galleryDesc} 
                                 onChange={(e) => {setGalleryDesc(e.currentTarget.value)}}
                                 autoSize={{ minRows: 3, maxRows: 5 }}
                                 placeholder="설명을 작성해주세요"
-                            ></input>
+                            ></textarea>
                             <div style={{marginTop:'10%'}}>
                             <p className="inputLabel" style={{fontSize:"15px"}}>갤러리의 타입을 선택해주세요</p>
                             {/* <Select

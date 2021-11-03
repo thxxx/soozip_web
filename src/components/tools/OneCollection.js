@@ -19,7 +19,7 @@ const OneCollection = ({item,isOwner, isEditing}) => {
             // collection 수도 1 낮추고
             await dbService.doc(`users/${dbgal[0].gal_id}`)
             .update({
-                collection_num:dbgal.collection_num - 1
+                collection_num:dbgal[0].collection_num - 1
             })
 
             // 댓글 목록에서도 지워야한다.
