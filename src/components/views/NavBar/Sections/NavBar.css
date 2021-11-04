@@ -6,19 +6,36 @@
   }
 
 .header{
-    background-color:#060b26;
+    position:fixed;
+    width:100%;
+    background-color:rgba(255, 255, 255, 0.685);
     height:80px;
     display: flex;
     justify-content:start;
     align-items: center;
     padding-left:1%;
     padding-right:1%;
+    z-index:30;
 }
 .nav-title{
-    color:#f5f5f5;
+    color:black;
     font-family: TTTogether;
     font-size:1.5rem;
 }
+
+.searchBar{
+    width:30%;
+    height:40px;
+    border-radius:10px;
+    background-color:rgba(128, 128, 128, 0.384);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-left:10%;
+    border:0px;
+    padding-left:1%;
+}
+
 .nav-on{
     position:fixed;
     right:0;
@@ -117,4 +134,28 @@ span{
     background-color:rgba(128, 128, 128, 0.37);
     border-radius: 5px;
     margin:10px;
+}
+.site_description_button{
+    margin-right:20px;
+    margin-left:20px;
+    text-decoration: none;
+    cursor: pointer;
+    color:black;
+}
+.site_description_button:hover{
+    border-bottom-color:#1a83ff;
+    border-bottom-width:1px;
+    font-weight: 700;
+}
+
+.login_button{
+    text-decoration: none;
+    font-size:17px;
+    cursor: pointer;
+    margin-right:20px;
+}
+.login_button:hover{    
+    font-weight: 700;
+    border-radius: 5px;
+    padding:8px;
 }

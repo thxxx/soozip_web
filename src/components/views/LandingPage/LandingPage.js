@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import './Sections/LandingPage.css'
 import GalleryCard from '../../tools/GalleryCard'
 import BigGalleryList from './Sections/BigGalleryList'
+import GalleryRankingList from './Sections/GalleryRankingList'
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import { app } from '../../tools/fbase';
@@ -162,6 +163,14 @@ const LandingPage = ({isLoggedIn}) => {
         getAllQnAs();
     },[type])
 
+    const galleryRankingTable = galleries.map((item, index) => {
+        return(
+            <div>
+                {item.title}
+            </div>
+            )
+        })
+    
     const galleryTable = galleries.map((item, index) => {
         return(
             <GalleryCard data={item} key={index}/>
@@ -181,13 +190,13 @@ const LandingPage = ({isLoggedIn}) => {
     })
 
     const typeTable = types.map((item, index) => {
-        let backColor = "#dddddd"
+        let backColor = "#000000"
         if(item === type){
             backColor = "#ff0000"
         }
         return(
-            <div className="typeOne" key={index} style={{backgroundColor: `${backColor}`}}>
-                <Button onClick={() => {setType(item);}} style={{color:'black', fontSize:'12px'}}>{item}</Button>
+            <div className="typeOne" key={index}>
+                <Button onClick={() => {setType(item);}} style={{color: `${backColor}`, fontSize:'15px'}}>{item}</Button>
             </div>
         )
     })
@@ -202,50 +211,60 @@ const LandingPage = ({isLoggedIn}) => {
     if( loading ){
     return (
         <div className="landingcontainer">
-            <div className="type-title">원하는 카테고리를 골라보세요.</div>
-            <div className="type-table23">
-                {typeTable}
-            </div>
             <BigGalleryList />
-            
-            <div className="qna-table-container">
-                <div className="qna-table-title">
-                    <span>갤러리들 입니다</span>
-                    <Link to="allgalleries" className="more-look-button">갤러리 더보기 ></Link>
-                </div>
-                <div className="landing-qna-table">
-                    {galleryTable}
+            <div className="landing-bottom-container">
+            <div className="landing-bottom-container-left">
+                <div className="type-table23">
+                    <div className="type-title">수집할 카테고리</div>
+                    {typeTable}
                 </div>
             </div>
 
-            <div className="qna-table-container">
-                <div className="qna-table-title">
-                    <span>컬렉션들 입니다</span>
-                    <Link to="allcollections" className="more-look-button">컬렉션 더보기 ></Link>
+            <div className="landing-bottom-container-right">
+                <div className="gallery-rankings">
+                    <GalleryRankingList />
                 </div>
-                <div className="landing-qna-table">
-                    {collectionTable}
+
+                <div className="qna-table-container">
+                    <div className="qna-table-title">
+                        <span>갤러리</span>
+                        <Link to="allgalleries" className="more-look-button">+ 갤러리 더보기</Link>
+                    </div>
+                    <div className="landing-qna-table">
+                        {galleryTable}
+                    </div>
+                </div>
+
+                <div className="qna-table-container">
+                    <div className="qna-table-title">
+                        <span>컬렉션</span>
+                        <Link to="allcollections" className="more-look-button">+ 컬렉션 더보기</Link>
+                    </div>
+                    <div className="landing-qna-table">
+                        {collectionTable}
+                    </div>
+                </div>
+
+                <div className="qna-table-container">
+                    <div className="qna-table-title">
+                        <span>🍯 꿀정보 교환소</span>
+                        <Link to="allinformations" className="more-look-button">정보 더보기 ></Link>
+                    </div>
+                    <div className="landing-qna-table">
+                        {informationTable}
+                    </div>
+                </div>
+
+                <div className="qna-table-container">
+                    <div className="qna-table-title">
+                        <span>🙋🏻 QnA 거래소</span>
+                        <Link to="allqnas" className="more-look-button">QnA 더보기 ></Link>
+                    </div>
+                    <div className="landing-qna-table">
+                        {qnaTable}
+                    </div>
                 </div>
             </div>
-
-            <div className="qna-table-container">
-                <div className="qna-table-title">
-                    <span>🍯 꿀정보 교환소</span>
-                    <Link to="allinformations" className="more-look-button">정보 더보기 ></Link>
-                </div>
-                <div className="landing-qna-table">
-                    {informationTable}
-                </div>
-            </div>
-
-            <div className="qna-table-container">
-                <div className="qna-table-title">
-                    <span>🙋🏻 QnA 거래소</span>
-                    <Link to="allqnas" className="more-look-button">QnA 더보기 ></Link>
-                </div>
-                <div className="landing-qna-table">
-                    {qnaTable}
-                </div>
             </div>
 
             {isLoggedIn ? <>

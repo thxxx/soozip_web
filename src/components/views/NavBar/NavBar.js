@@ -27,6 +27,7 @@ const style = {
 const NavBar = ({isLoggedIn, userObj}) => {
     const [sidebar, setSidebar] = useState(false);
     const [open, setOpen] = useState(false);
+    const [searchKeyword, setSearchKeyword] = useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -56,8 +57,15 @@ const NavBar = ({isLoggedIn, userObj}) => {
                 <span>
                     <Link to="/" className="nav-title">Soozip</Link>
                 </span>
+                <input className="searchBar" placeholder="검색하기" value={searchKeyword} onChange={e => setSearchKeyword(e.currentTarget.value)}/>
+                <span>
+                    <Link to={{
+                        pathname:`/searchPage/${searchKeyword}`
+                    }}>검색</Link>
+                </span>
                 <span className="nav-on">
-                    {isLoggedIn ? <button onClick={onLogOutClick} className="inout-button">로그아웃</button> : <button onClick={onSocialClick}>로그인</button>}
+                    <Link to="soozip_description" className="site_description_button">사이트 소개</Link>
+                    {isLoggedIn ? <span onClick={onLogOutClick} className="login_button">로그아웃</span> : <span onClick={onSocialClick} className="login_button">로그인</span>}
                     {userObj ? <p style={{fontWeight:700}}>{userObj.displayName}</p> : null}
                     <Link to="#" className="menu-bars">
                         <FaIcons.FaBars onClick={showSidebar} />

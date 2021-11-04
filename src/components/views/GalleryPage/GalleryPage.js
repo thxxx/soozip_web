@@ -118,12 +118,14 @@ const GalleryPage = (props) => {
     return (
         <div className="gallery-container" style={{ background:`linear-gradient(to right, ${item.left_color} 30%, ${item.right_color})`}}>
             <div className="gallery-header">
+                {/* 만약 내 갤러리라면? */}
                 { User ? item.userId === User.uid && 
                 <span className="if-my-gallery">
                     이곳은 내 갤러리 입니다.
                     { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : <>
                         <span onClick={editOpen} className="collection-delete-button">컬렉션 삭제하기</span>
                         <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>갤러리 정보수정</Link>
+                        
                         </>
                     }
                 </span> : null

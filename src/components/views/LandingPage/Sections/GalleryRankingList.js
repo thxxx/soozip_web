@@ -18,7 +18,7 @@ const gallery = [
 
 const SLIDEMAXNUM = 4;
 
-const BigGalleryList = () => {
+const GalleryRankingList = () => {
     const [num, setNum] = useState(1);
 
     const moveLeft = () => {
@@ -79,4 +79,4 @@ const BigGalleryList = () => {
     )
 }
 
-export default BigGalleryList
+export default GalleryRankingList

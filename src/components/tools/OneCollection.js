@@ -36,6 +36,24 @@ const OneCollection = ({item,isOwner, isEditing}) => {
 
         }
     }
+
+    const onClickGalleryMain = async () => {
+        const dbgallery = await dbService
+        .collection("users")
+        .where("userId", "==", item.creatorId)
+        .get()
+        
+        let dbgal = dbgallery.docs.map(doc => {return({...doc.data(), gal_id:doc.id})})
+
+        // collection 수도 1 낮추고
+        await dbService.doc(`users/${dbgal[0].gal_id}`)
+        .update({
+            mainImage:`${item.attachmentURL}`
+        })
+
+        alert("등록완료!")
+    }
+
     return (
         <div className="one-collection-container2">
             <Link to={{
@@ -57,6 +75,7 @@ const OneCollection = ({item,isOwner, isEditing}) => {
             </Link>
             {isOwner && isEditing ? <>
             <button onClick={onClickDelete}>Delete</button>
+            <button onClick={onClickGalleryMain}>대표 사진으로 등록</button>
             {/* <button>Update</button> */}
             </> : null }
         </div>
