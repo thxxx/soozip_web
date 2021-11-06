@@ -1,7 +1,7 @@
 import React, {useEffect, useState,useRef} from 'react'
 import './Sections/GalleryPage.css'
 import { dbService } from '../../tools/fbase';
-import OneCollection from '../../tools/OneCollection';
+import OneCollection from '../../tools/Cards/OneCollection';
 import {authService} from '../../tools/fbase';
 import CollectionList from './Sections/CollectionList';
 import CommentContainer from '../../tools/CommentContainer';
@@ -9,6 +9,7 @@ import * as FaIcons from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import * as AiIcons from 'react-icons/ai';
 import {Link} from 'react-router-dom'
+import TypeTable from '../../tools/TypeTable';
 
 const GalleryPage = (props) => {
     const targets = useRef(null);
@@ -25,12 +26,6 @@ const GalleryPage = (props) => {
         // const target = document.getElementById('second')
         targets.current.scrollIntoView({behavior: 'smooth'})
     }
-
-    const handleOpen = () => {
-        setOpen(true);
-        
-    }
-    const handleClose = () => setOpen(false);
 
     const editOpen = () => {
         setIsEditing(!isEditing);
@@ -116,7 +111,8 @@ const GalleryPage = (props) => {
 
     
     return (
-        <div className="gallery-container" style={{ background:`linear-gradient(to right, ${item.left_color} 30%, ${item.right_color})`}}>
+        <div className="gallery-container">
+            <TypeTable top="20%"/>
             <div className="gallery-header">
                 {/* 만약 내 갤러리라면? */}
                 { User ? item.userId === User.uid && 
@@ -124,35 +120,56 @@ const GalleryPage = (props) => {
                     이곳은 내 갤러리 입니다.
                     { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : <>
                         <span onClick={editOpen} className="collection-delete-button">컬렉션 삭제하기</span>
-                        <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>갤러리 정보수정</Link>
-                        
+                        <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>
+                            갤러리 정보수정
+                        </Link>
+
                         </>
                     }
                 </span> : null
                 }
-                <span className="gallery-owner" style={{backgroundColor:`${item.color}`}}>
-                    <div>
-                        <span className="font">{item.displayName}</span>님의 공간입니다.
-                    </div>
+                <div className="gallery-page-top-first">
+                    <span style={{width:'40%', display:'flex', justifyContent:'start'}}>
+                        <span style={{fontWeight:'600'}}>{item.displayName}</span>님의 공간입니다.
+                    </span>
+                    <span style={{width:'60%', display:'flex', justifyContent:'end'}}>
+                        <span style={{fontWeight:'600', color:'#4060AB'}}>{item.collection_num}</span>개의 수집품이 전시되어있고 <span style={{fontWeight:'600', color:'#4060AB'}}>{item.like_num}</span>번 수집되셨습니다.
+                    </span>
+                </div>
+                <span className="gallery-owner">
                     <span className="gallery-title">
                         {item.galleryName}
                     </span>
+                    <div className="title-info">
+                        {item.desc}
+                    </div>
+                    <div className="gallery-type-table">
+                        {loading && item.typess.map((item, index) => {
+                            return (
+                                <span key={index} className="tag">{item}</span>
+                            )
+                        })}
+                    </div>
                 </span>
-                <div className="title-info">
-                    <p><span>{item.collection_num}개의 컬렉션이 전시되어있고 </span><span> {item.like_num}명이 좋아합니다. </span><span s tyle={{marginLeft:'10%'}}> {item.comment_num}개의 댓글</span></p>
+
+                <div className="side-actions">
+                    <span className="action-component" onClick={addLike}>
+                        <FaIcons.FaRegHeart color="5555ff" size="30px"/>
+                        <span className="num">{item.like_num}</span>
+                    </span>
+                    <span className="action-component" onClick={scrollDown}>
+                        <span className="num">방명록 보러가기</span>
+                        <span className="num">{item.comment_num}</span>
+                    </span>
                 </div>
-                <div className="gallery-type-table">
-                    {loading && item.typess.map((item, index) => {
-                        return (
-                            <span key={index} className="tag">{item}</span>
-                        )
-                    })}
-                </div>
-                <div className="galley-info">
-                    {item.desc}
-                </div>
-            </div>
             <div className="collection-list">
+                <div className="soozip-gury-list">
+                    <span className="soozip-gury">수집거리</span>
+                    <span className="soozip-gury-filter">
+                        <span className="soozip-gury-select">핫한 수집거리</span>
+                        <span className="soozip-gury-select">신규 수집거리</span>
+                    </span>
+                </div>
                 <CollectionList collections={collections} mainColor={"rgba(0,0,0,0)"} isEditing={isEditing}/>
             </div>
             {/* 비슷한 갤러리 추천 공간 */}
@@ -166,14 +183,8 @@ const GalleryPage = (props) => {
             <div ref={targets} ></div>
 
             { loading && <CommentContainer category="g_comments" contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
-            
-            <span className="side-actions">
-                <span className="action-component" onClick={addLike}>
-                    <FaIcons.FaRegHeart color="5555ff" size="30px"/>
-                    <span className="num">{item.like_num}</span>
-                </span>
-                <span className="action-component" onClick={scrollDown}>댓글 {item.comment_num}</span>
-            </span>
+
+            </div>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import GalleryCard from '../../../tools/GalleryCard'
 import './BigGalleryList.css'
 
 import slide_first from '../../../img/slide_first.png'

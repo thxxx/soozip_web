@@ -16,6 +16,9 @@ function UploadPage({userObj}) {
     const [desc, setDesc] = useState("")
     const [attachment, setAttachment] = useState("")
     const [type, setType] = useState("all")
+    const [favorite, setFavorite] = useState(false)
+    const [tag, setTag] = useState("")
+    const [tags, setTags] = useState([])
 
     const submit = async (e) => {
         e.preventDefault();
@@ -36,7 +39,9 @@ function UploadPage({userObj}) {
             attachmentURL:attachmentURL,
             like_num:0,
             comment_num:0,
-            type:type
+            type:type,
+            favorite:favorite,
+            hashtags:tags,
         };
 
         await dbService.collection("collections").add(collectionOne);
@@ -75,6 +80,21 @@ function UploadPage({userObj}) {
         reader.readAsDataURL(oneFile);
     }
 
+    const changeTag = (e) => {
+        if(e.currentTarget.value.includes(" ")){
+            setTags([...tags, e.currentTarget.value])
+            setTag("")
+        }else{
+            setTag(e.currentTarget.value)
+        }
+    }
+
+    const deleteTag = (item) => {
+        let modifiedTags = tags.filter(d => d !== item)
+        console.log("삭제", item)
+        setTags([...modifiedTags])
+    }
+
     return (
         <div className="uploadcontainer">
             <div className="uploadIncontainer">
@@ -96,23 +116,30 @@ function UploadPage({userObj}) {
                     <p className="inputLabel" style={{fontSize:"15px"}}>컬렉션의 종류를 선택해주세요</p>
                         <Select options={typeSelect} onChange={e => {setType(e.label); console.log(e.label)}} style={{color:'black'}}/>
                     </div>
+                    {/* Favorite 여부 */}
+                    <div style={{marginTop:'1%', flexDirection:'row', display: 'flex', justifyContent:'start', alignItems:'center'}}>
+                        <p className="inputLabel" style={{fontSize:"15px"}}>가장 좋아하는 컬렉션이라면 체크해주세요</p>
+                        <input type="checkbox" id="c_box" value={favorite} onChange={e => {setFavorite(e.currentTarget.value);}}/>
+                    </div>
+
+                    {/* 해시태그 받기*/}
+                    <div style={{marginTop:'1%'}}>
+                        <p className="inputLabel" style={{fontSize:"15px"}}>해시태그를 설정해주세요 (스페이스바를 누르면 해시태그가 구분됩니다.)</p>
+                        {tags.map((item, index) => {
+                            return(
+                                <span key={index}>#{item} <span style={{cursor:'pointer'}} onClick={() => deleteTag(item)}>x</span></span>
+                            )
+                        })}
+                        <input style={{marginTop:'1%'}} autoSize={{ minRows: 1, maxRows: 2 }} placeholder="해시태그" className="nameInput" value={tag} onChange={changeTag}></input>
+                    </div>
 
                     <div style={{marginTop:'10%'}}>
-                    <input type="file" accept="image/*" className="file-input" onChange={onFileChange}/>
-                    {attachment && 
-                    <div>
-                        <img src={attachment} className="col-image"/>
-                    </div>}
+                        <input type="file" accept="image/*" className="file-input" onChange={onFileChange}/>
+                        {attachment && 
+                        <div>
+                            <img src={attachment} className="col-image"/>
+                        </div>}
                     </div>
-                    
-                    {/* <p className="inputLabel">왜 남들에게 추천하고 싶으신가요?</p>
-                    <TextArea 
-                        className="nameInput" 
-                        value={reason} 
-                        onChange={(e) => {setReason(e.currentTarget.value)}}
-                        autoSize={{ minRows: 1, maxRows: 3 }}
-                        placeholder="Any reason"
-                    ></TextArea> */}
                     <div>
                     <button className="inputButton" onClick={submit}>등록하기</button>
                     </div>

@@ -4,8 +4,7 @@ import './Sections/NavBar.css'
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SideBarData } from './Sections/SideBarData';
-import { IconContext } from 'react-icons';
-import {firebaseInstance, authService, GoogleAuthProvider} from '../../tools/fbase';
+import {firebaseInstance, authService } from '../../tools/fbase';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -61,10 +60,10 @@ const NavBar = ({isLoggedIn, userObj}) => {
                 <span>
                     <Link to={{
                         pathname:`/searchPage/${searchKeyword}`
-                    }}>검색</Link>
+                    }} className="search-button">검색</Link>
                 </span>
                 <span className="nav-on">
-                    <Link to="soozip_description" className="site_description_button">사이트 소개</Link>
+                    <Link to="/soozip_description" className="site_description_button">사이트 소개</Link>
                     {isLoggedIn ? <span onClick={onLogOutClick} className="login_button">로그아웃</span> : <span onClick={onSocialClick} className="login_button">로그인</span>}
                     {userObj ? <p style={{fontWeight:700}}>{userObj.displayName}</p> : null}
                     <Link to="#" className="menu-bars">

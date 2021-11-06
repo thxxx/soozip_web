@@ -102,6 +102,11 @@
     width:50%;
     height:50%;
 }
+#c_box{
+    margin-top:5%;
+    margin-left:5%;
+}
+
 @media (max-width: 700px) {
     .uploadIncontainer{
         width:95%;

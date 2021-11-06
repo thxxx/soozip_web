@@ -1,12 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
-import GalleryCard from '../../tools/GalleryCard'
+import GalleryCard from '../../tools/Cards/GalleryCard'
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
 import { dbService } from '../../tools/fbase';
-import { types } from '../../tools/types'
 import Button from '@mui/material/Button';
-import {firebaseInstance, authService, GoogleAuthProvider} from '../../tools/fbase';
+import TypeTable from '../../tools/TypeTable'
 import './All.css'
 
 function AllGalleries() {
@@ -32,19 +30,6 @@ function AllGalleries() {
         setLoading(true);
     }
 
-
-    const typeTable = types.map((item, index) => {
-        let backColor = "#060b26"
-        if(item === type){
-            backColor = "#ff0000"
-        }
-        return(
-            <div className="typeOne" key={index} style={{backgroundColor: `${backColor}`}}>
-                <Button onClick={() => {setType(item);}} style={{color:'white', fontSize:'12px'}}>{item}</Button>
-            </div>
-        )
-    })
-
     useEffect(() => {
         getAllCollections();
     },[type])
@@ -62,22 +47,20 @@ function AllGalleries() {
                     <span>전체 갤러리</span>
                     <span style={{fontSize:'18px'}}>soozip가들 각각의 개성 넘치는 갤러리를 감상해보세요. </span>
             </div>
-            <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>
-            </div>
-            <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>
-                원하는 카테고리를 골라보세요.
-            </div>
-            <div className="type-table23" style={{backgroundColor:'rgba(0,0,0,0)'}}>
-                {typeTable}
-            </div>
+            <div className="all-table">
+                <TypeTable/>
+                <div className="all-galleries-container">
+                    <div className="type-title" style={{backgroundColor:'rgba(0,0,0,0)', color:'#060b26', marginTop:'1%'}}>
+                        원하는 카테고리를 골라보세요.
+                    </div>
 
-
-            <div className="qna-table-container">
-                <div className="landing-qna-table">
-                    {galleryTable}
+                    <div className="qna-table-container" style={{margin:'0%', padding:'0%'}}>
+                        <div className="landing-qna-table" style={{margin:'0%', padding:'0%'}}>
+                            {galleryTable}
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
         )
     }else{

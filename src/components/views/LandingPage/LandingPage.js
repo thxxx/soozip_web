@@ -1,35 +1,16 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import './Sections/LandingPage.css'
-import GalleryCard from '../../tools/GalleryCard'
+import GalleryCard from '../../tools/Cards/GalleryCard'
 import BigGalleryList from './Sections/BigGalleryList'
 import GalleryRankingList from './Sections/GalleryRankingList'
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import { app } from '../../tools/fbase';
 import { dbService } from '../../tools/fbase';
 import QnACard from './Sections/QnACard'
 import InformationCard from './Sections/InformationCard'
 import CollectionCard from './Sections/CollectionCard'
-import { types } from '../../tools/types'
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import {firebaseInstance, authService, GoogleAuthProvider} from '../../tools/fbase';
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    borderRadius: '15px',
-    border: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: 24,
-    p: 4,
-};
+import TypeTable from '../../tools/TypeTable'
+import LoginModal from '../../tools/Modal/LoginModal'
 
 const LandingPage = ({isLoggedIn}) => {
     const [galleries, setGalleries] = useState([]);
@@ -37,22 +18,11 @@ const LandingPage = ({isLoggedIn}) => {
     const [qnas, setQnas] = useState([]);
     const [informations, setInformations] = useState([]);
     const [type, setType] = useState("전체");
-    const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
-        
-    }
-
-    const handleClose = () => setOpen(false);
-
-
-    const onSocialClick = async (e) => {
-        //지금은 구글 로그인 밖에 없기때문에 굳이 구분하는 flow를 만들지 않는다.
-        let provider = new firebaseInstance.auth.GoogleAuthProvider();
-        const data = await authService.signInWithPopup(provider);
-        handleClose();
     }
 
     const getAllCollections = async () => {
@@ -189,18 +159,6 @@ const LandingPage = ({isLoggedIn}) => {
         )
     })
 
-    const typeTable = types.map((item, index) => {
-        let backColor = "#000000"
-        if(item === type){
-            backColor = "#ff0000"
-        }
-        return(
-            <div className="typeOne" key={index}>
-                <Button onClick={() => {setType(item);}} style={{color: `${backColor}`, fontSize:'15px'}}>{item}</Button>
-            </div>
-        )
-    })
-
     const collectionTable = collections.map((item, index) => {
         return(
             <CollectionCard item={item} key={index}/>
@@ -213,16 +171,11 @@ const LandingPage = ({isLoggedIn}) => {
         <div className="landingcontainer">
             <BigGalleryList />
             <div className="landing-bottom-container">
-            <div className="landing-bottom-container-left">
-                <div className="type-table23">
-                    <div className="type-title">수집할 카테고리</div>
-                    {typeTable}
-                </div>
-            </div>
+                <TypeTable top="50%"/>
 
             <div className="landing-bottom-container-right">
                 <div className="gallery-rankings">
-                    <GalleryRankingList />
+                    {/* <GalleryRankingList /> */}
                 </div>
 
                 <div className="qna-table-container">
@@ -274,31 +227,6 @@ const LandingPage = ({isLoggedIn}) => {
             </>: 
             <span className="upload-button" onClick={handleOpen}>컬렉션 등록하기</span>
             }
-            
-            {/* 아래는 수정용 모달. */}
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                <div className="update-body">
-                    <span style={{width: '100%'}}>
-                    <p className="login-desc">3초만에 로그인하고 시작하기</p>
-
-                    </span>
-                    <span style={{width: '100%'}}>
-                        <button onClick={onSocialClick} className="google-login"><FaIcons.FaGoogle /> <span> </span> Google 로그인</button>
-                    </span>
-                    <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
-                    <span onClick={handleClose} className="cancel-button">
-                        취소하기
-                    </span>
-                    </div>
-                </div>
-                </Box>
-            </Modal>
 
         </div>
         )

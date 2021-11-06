@@ -1,0 +1,50 @@
+
+.landing-bottom-container-left{
+    width:16%;
+}
+
+.typeOne{
+    padding:0px 9px;
+    height:30px;
+    display: flex;
+    margin:1px;
+    padding-left:4%;
+    font-size:17px;
+    font-family: 'Noto Sans KR';
+  }
+  
+  .type-table23{
+    display: flex;
+    flex-direction: column;
+    width:13%;
+    height:200px;
+    border-radius:10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    left:5%;
+    padding-bottom:10%;
+    position: fixed;
+  }
+
+.type-table23-list{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    padding-top:15px;
+}
+  
+  .type-title{
+    color:rgba(240,240,240,1);
+    text-align:center;
+    height:12%;
+    background-color: #060b26;
+    font-size:17px;
+    padding:10px 0px;
+    font-family: "GmarketSansMedium";
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+  }
+  
+  .typeButton{
+    color:white;
+  }

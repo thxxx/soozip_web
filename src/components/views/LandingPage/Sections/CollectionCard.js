@@ -15,7 +15,7 @@ const CollectionCard = ({item}) => {
         }
     }
     return (
-        <div className="one-collection-container2">
+        <div className="one-collection-container2-short-height">
             <Link to={{
                 pathname:`/CollectionPage/${item.id}`,
                 state:{
@@ -23,9 +23,8 @@ const CollectionCard = ({item}) => {
                 }
             }} className="one-collection">
                 {/* 실수로 파일을 삭제했을때를 대비 */}
-                <div className="one-collection-type">{item.type}</div>
                 {item.attachmentURL && <img src={item.attachmentURL}  className="collection-img"/>}
-                <div className="collection-info" style={{display: "flex"}}>
+                <div className="one-collection-info" style={{display: "flex"}}>
                     <span className="title">
                         {item.title}
                     </span>

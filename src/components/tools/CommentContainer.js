@@ -331,7 +331,7 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
                         pathname:`/gallery/${item.galleryId}`
                     }} className="comment-move">
                         <p style={{margin:'3px'}}><span style={{color:'gray'}}>작성</span> {item.displayName}</p>
-                        <p style={{margin:'3px', color:`${item.galleryColor}`}}>{item.galleryName} </p>
+                        <p style={{margin:'3px'}}>{item.galleryName} </p>
                     </Link>
                     <div className="comment-body-body">
                         <p style={{margin:'0px', marginTop:'3px', color:'rgba(0,0,0,0.2)', fontSize:'12px', paddingLeft:'0%'}}>
@@ -362,21 +362,22 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
     {/* 댓글을 달고 보여주는 공간 */}
     return (
         <div className="comment-container">
+            { category === "g_comments" ? 
+                <div className="comment-title">
+                    안줏거리
+                </div> : null
+            }
             <div className="comment-body-container">
-                { category === "g_comments" ? 
-                    <div className="comment-title">
-                        <span style={{fontSize:'18px', color:'green'}}>{displayName}</span>님의 공간에 대한 감상평을 남겨보세요!
-                    </div> : null
-                }
-                <div className="comment-input-container">
-                    <Input value={comment} onChange={e => setComment(e.currentTarget.value)} placeholder="댓글을 입력하세요." className="comment-input"/>
-                    <span className="comment-send" onClick={uploadComment} >
-                        작성
-                    </span>
-                </div>
                 <div className="comment-table-container">
                     {commentTable}
                 </div>
+            </div>
+
+            <div className="comment-input-container">
+                <Input value={comment} onChange={e => setComment(e.currentTarget.value)} placeholder="댓글을 입력하세요." className="comment-input"/>
+                <span className="comment-send" onClick={uploadComment} >
+                    작성
+                </span>
             </div>
 
             {/* 아래는 수정용 모달. */}

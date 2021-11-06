@@ -16,42 +16,69 @@
     font-weight: normal;
     font-style: normal;
 }
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
 .one-collection-container2{
     margin:1%;
-}
-.one-collection{
-    width:200px;
-    text-decoration: none;
+    width:23%;
+    height:350px;
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction: column;
+    box-shadow: 4px 4px 10px rgba(25,25,25,0.2);
+    border-radius:7px;
+}
+.one-collection-container2-short-height{
+    margin:1%;
+    width:23%;
+    height:300px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    box-shadow: 4px 4px 10px rgba(25,25,25,0.2);
+    border-radius:7px;
+}
+.one-collection{
+    text-decoration: none;
+    width:100%;
+    height:100%;
+}
+.one-collection-favorite{
+    text-decoration: none;
+    width:100%;
+    height:100%;
+    border-radius:7px;
+    border: 1px solid rgb(252, 71, 101);
+}
+.collection-img{   
+    object-fit: cover;
+    width:100%;
+    height:320px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 
-.collection-img{    
-    width:200px;
-    height:200px;
-    border-radius: 10px;
-}
-.collection-info{
+.one-collection-info{
     text-decoration: none;
     color:rgb(77, 77, 77);
-    margin-top:3%;
     display: flex;
     width:100%;
+    height: 6%;
     flex-direction:row;
+    justify-content:center;
+    align-items: center;
     font-size:13px;
-    font-family: EliceRegular;
 }
 .title{
     width:100%;
 }
 .like{
     font-weight: 500;
-    width:20%;
+    border-radius:15px;
     display: flex;
     justify-content:end;
     margin-right:3%;
-    color:rgb(245, 100, 100);
+    color:rgb(0, 0, 0);
 }

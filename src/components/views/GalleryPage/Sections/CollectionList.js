@@ -1,5 +1,5 @@
 import React from 'react'
-import OneCollection from '../../../tools/OneCollection'
+import OneCollection from '../../../tools/Cards/OneCollection'
 import {authService} from '../../../tools/fbase';
 import './GalleryPage.css'
 

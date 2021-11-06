@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import './OneCollections.css';
-import {dbService} from '../tools/fbase';
-import {stService} from '../tools/fbase';
+import {dbService} from '../../tools/fbase';
+import {stService} from '../../tools/fbase';
 
 const OneCollection = ({item,isOwner, isEditing}) => {
     const onClickDelete = async () => {
@@ -56,15 +56,16 @@ const OneCollection = ({item,isOwner, isEditing}) => {
 
     return (
         <div className="one-collection-container2">
+            {item.favorite ? 
             <Link to={{
                 pathname:`/CollectionPage/${item.id}`,
                 state:{
                     data:item
                 }
-            }} className="one-collection">
+            }} className="one-collection-favorite">
                 {/* 실수로 파일을 삭제했을때를 대비 */}
-                {item.attachmentURL && <img src={item.attachmentURL}  className="collection-img"/>}
-                <div className="collection-info" style={{display: "flex"}}>
+                <img className="collection-img" src={item.attachmentURL}/>
+                <div className="one-collection-info" style={{display: "flex"}}>
                     <span className="title">
                         {item.title}
                     </span>
@@ -73,6 +74,31 @@ const OneCollection = ({item,isOwner, isEditing}) => {
                     </span>
                 </div>
             </Link>
+            :
+            <Link to={{
+                pathname:`/CollectionPage/${item.id}`,
+                state:{
+                    data:item
+                }
+            }} className="one-collection">
+
+                {/* 실수로 파일을 삭제했을때를 대비 */}
+                <div>
+                    <img className="collection-img" src={item.attachmentURL}/>
+                </div>
+                <div className="one-collection-info" style={{display: "flex"}}>
+                    <span className="title">
+                        {item.title}
+                    </span>
+                    <span className="like">
+                        {item.like_num}
+                    </span>
+                </div>
+            </Link>
+            }
+            
+
+
             {isOwner && isEditing ? <>
             <button onClick={onClickDelete}>Delete</button>
             <button onClick={onClickGalleryMain}>대표 사진으로 등록</button>

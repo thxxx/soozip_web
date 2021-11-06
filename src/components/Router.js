@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
-import Auth from '../routes/Auth';
-import Home from '../routes/Home';
 import LandingPage from './views/LandingPage/LandingPage';
 import GalleryPage from './views/GalleryPage/GalleryPage';
 import ProfilePage from './views/ProfilePage/ProfilePage';
