@@ -99,9 +99,16 @@
 
 .soozip-gury-select{
     cursor: pointer;
+    background-color:rgba(0, 0, 0, 0);
+    border-width:0px;
+    font-family:'GmarketSansMedium';
+    font-size:17px;
 }
 .soozip-gury-select:hover{
     font-weight:700;
+}
+.soozip-gury-select:focus{
+    color: #4060AB;
 }
 
 .collections-table2{
@@ -153,9 +160,44 @@
     margin:10px;
     box-shadow: 6px 6px 10px rgba(25,25,25,0.2);
     cursor:pointer;
+    transition:-3s;
 }
 .action-component:hover{
     background-color:rgb(231, 231, 231);
+}
+
+.action-component-hit{
+    height:70px;
+    padding: 0px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    background-color:#62a0b07c;
+    margin:10px;
+    box-shadow: 6px 6px 10px rgba(25,25,25,0.2);
+    cursor:pointer;
+    border-width:0px;
+}
+.action-component-hit:active{
+    animation : anim-shadow .2s ease-in forwards;
+}
+.action-component-hit:hover{
+    border: 1px solid #62A1B0;
+}
+@keyframes anim-shadow{
+    50% {
+        color:white;
+        border: 1px solid #62A1B0;
+        background-color:#62a0b0;
+        box-shadow: 0px 0px 5px 5px #62A1B0;
+    }
+    100% {
+        color:black;
+        border: 0px solid black;
+        box-shadow: 6px 6px 10px rgba(25,25,25,0.2);
+    }
 }
 
 .tag{

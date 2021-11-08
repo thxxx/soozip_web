@@ -40,10 +40,11 @@
   font-size:2.2rem;
   font-family: 'GmarketSansMedium';
   padding:1% 0%;
-  width:80%;
+  width:95%;
   display: flex;
   flex-direction:row;
-  align-items: center;
+  align-items: start;
+  justify-content: start;
 }
 
 .update-body{

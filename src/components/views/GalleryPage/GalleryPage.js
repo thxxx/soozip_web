@@ -17,9 +17,8 @@ const GalleryPage = (props) => {
     const [collections, setCollections] = useState([]);
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(false);
-    const [now, setNow] = useState("");
+    const [colLoading, setColLoading] = useState(false);
     const User = authService.currentUser;
-    const [open, setOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
     const scrollDown = () => {
@@ -33,20 +32,23 @@ const GalleryPage = (props) => {
 
     // useEffect안에서 async를 하기 위해서 이렇게 따로 함수로 빼서 한다.
     // getThisCollections(); 이건 옛날방식이다?ㅠㅠ
-    const getThisCollections = async () => {
+    const getThisCollections = async (isSubscribed) => {
         if(loading === true){
             const dbcollections = await dbService
             .collection("collections")
             .where("creatorId", "==", item.userId)
             .get();
+
             setCollections(dbcollections.docs.map(doc => {
                 return({...doc.data(), id:doc.id})        
                 }
             ));
+            setColLoading(true);
         }
         //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
     }
-    const getThisGallery = async () => {
+    const getThisGallery = async (isSubscribed) => {
+        console.log("갤러리까지 렌더링")
         const dbgallery = await dbService
         .collection("users")
         .doc(props.match.params.id)
@@ -54,19 +56,19 @@ const GalleryPage = (props) => {
         .then(snapshot => setItem({...snapshot.data(), id:snapshot.id}));
         //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
         setLoading(true);
-        setNow(props.match.params.id)
     }
 
     useEffect(() => {
-        if(now !== props.match.params.id){
-            setLoading(false);
+        let isSubscribed = true;
+        
+        if(loading === false){
+            window.scrollTo({top:0, left:0, behavior:'smooth'})
+            getThisGallery(isSubscribed);
         }
-        // if(props.location.state === undefined){
-        //     props.history.push("/")       
-        // }
-        getThisGallery();
-        getThisCollections(); // 이건 옛날방식이다?ㅠㅠ
-        // 이 방법이 re-render하지 않아서 더 빠르다.
+        if(colLoading === false){
+            getThisCollections(isSubscribed);
+        }
+        return () => (isSubscribed = false);
     },[update, loading, props.match.params.id])
 
     const addLike = async () => {
@@ -90,7 +92,7 @@ const GalleryPage = (props) => {
                 like_num:item.like_num + 1,
             });
             alert("I like it!");
-            setUpdate(!update);
+            getThisGallery();
         }else{
             const ok = window.confirm("이미 좋아요를 누르셨습니다. 취소하시겠습니까?");
             console.log(db_like[0].id);
@@ -102,11 +104,37 @@ const GalleryPage = (props) => {
                     like_num:item.like_num - 1,
                 });
                 alert("취소 했습니다!");
-                setUpdate(!update);
+                getThisGallery();
             }else{
                 return;
             }
         }
+    }
+
+    const addHit = async () => {
+        if(item.id != User.uid)
+        await dbService.doc(`users/${item.id}`).update({
+            hit_num: item.hit_num + 1
+        });
+        getThisGallery();
+    }
+
+    const array_hot = () => {
+        const result = collections.sort(function (a, b) {
+            return b.like_num - a.like_num;
+        });
+        setCollections(result);
+        setUpdate(!update);
+    }
+
+    const array_new = () => {
+        const result = collections.sort(function (a, b) {
+            const ad = new Date(a.created)
+            const bd = new Date(b.created)
+            return bd - ad;
+        });
+        setCollections(result);
+        setUpdate(!update);
     }
 
     
@@ -153,8 +181,12 @@ const GalleryPage = (props) => {
                 </span>
 
                 <div className="side-actions">
+                    <span className="action-component-hit" onClick={addHit}>
+                        <span className="num">Hit! 점수</span>
+                        <span className="num">{item.hit_num}</span>
+                    </span>
                     <span className="action-component" onClick={addLike}>
-                        <FaIcons.FaRegHeart color="5555ff" size="30px"/>
+                        <FaIcons.FaRegBookmark color="5555ff" size="30px"/>
                         <span className="num">{item.like_num}</span>
                     </span>
                     <span className="action-component" onClick={scrollDown}>
@@ -166,8 +198,8 @@ const GalleryPage = (props) => {
                 <div className="soozip-gury-list">
                     <span className="soozip-gury">수집거리</span>
                     <span className="soozip-gury-filter">
-                        <span className="soozip-gury-select">핫한 수집거리</span>
-                        <span className="soozip-gury-select">신규 수집거리</span>
+                        <button className="soozip-gury-select" onClick={array_hot}>핫한 수집거리</button>
+                        <button className="soozip-gury-select" onClick={array_new}>신규 수집거리</button>
                     </span>
                 </div>
                 <CollectionList collections={collections} mainColor={"rgba(0,0,0,0)"} isEditing={isEditing}/>
@@ -182,7 +214,7 @@ const GalleryPage = (props) => {
 
             <div ref={targets} ></div>
 
-            { loading && <CommentContainer category="g_comments" contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
+            { loading && <CommentContainer category="g_comments" setLoading={setLoading} contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
 
             </div>
         </div>

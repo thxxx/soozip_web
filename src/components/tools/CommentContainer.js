@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-const CommentContainer = ({category, contentId, userId, contentLikeNum, displayName}) => {
+const CommentContainer = ({category, contentId, userId, contentLikeNum, displayName, setLoading}) => {
     const [update, setUpdate] = useState(false);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
@@ -329,7 +329,7 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
                 <span className="comment-body">
                     <Link to={{
                         pathname:`/gallery/${item.galleryId}`
-                    }} className="comment-move">
+                    }} className="comment-move" onClick={() => {setLoading(false);window.scrollTo({top:0, left:100, behavior:'smooth'});}}>
                         <p style={{margin:'3px'}}><span style={{color:'gray'}}>작성</span> {item.displayName}</p>
                         <p style={{margin:'3px'}}>{item.galleryName} </p>
                     </Link>

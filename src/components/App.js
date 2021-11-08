@@ -8,8 +8,6 @@ import * as AiIcons from 'react-icons/ai';
 import {connect} from 'react-redux'
 
 function App() {
-  console.log("APP.js에서 동작 / auth", authService.currentUser ) //User 또는 null을 반환한다. 공식문서 잘 읽어서 쓰기! 로그인 여부 파악에 사용.
-  console.log("auth", authService.currentUser ) //User 또는 null을 반환한다. 공식문서 잘 읽어서 쓰기! 로그인 여부 파악에 사용.
   const [init, setInit] = useState(false);
   // firebase가 유저를 읽어오기까지 기다려야 한다.
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,9 +20,10 @@ function App() {
       .where("userId", "==", user.uid)
       .get()
 
-    let dbgal = [{gal_id:1}]
+    let dbgal = [{gal_id:2}]
     dbgal = dbgallery.docs.map(doc => {return({...doc.data(), gal_id:doc.id})})
-    if(dbgallery.length > 0){
+    console.log(dbgal.length)
+    if(dbgal.length > 0){
       setUserObj({...user, gal_id:dbgal[0].gal_id})
     }else{
       setUserObj({...user, gal_id:1})

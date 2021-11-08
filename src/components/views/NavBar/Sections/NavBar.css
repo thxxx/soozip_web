@@ -68,7 +68,7 @@
 .nav-menu.active{
     right:0;
     transition:150ms;
-    z-index:2;
+    z-index:112;
 }
 .nav-text{
     display:flex;

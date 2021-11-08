@@ -40,7 +40,6 @@ const NavBar = ({isLoggedIn, userObj}) => {
     }
 
     const onLogOutClick = () => {
-        console.log("로그아웃")
         authService.signOut();
     }
 

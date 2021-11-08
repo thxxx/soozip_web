@@ -16,6 +16,7 @@ import AllCollections from './views/AllPages/AllCollections'
 import AllGalleries from './views/AllPages/AllGalleries'
 import AllQnAs from './views/AllPages/AllQnAs'
 import AllInformations from './views/AllPages/AllInformations'
+import SearchPage from './views/SeachPage/SearchPage'
 
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
@@ -49,6 +50,7 @@ return(
                 <Route exact path="/gallery/:id" component={ GalleryPage } />
                 <Route exact path="/QnAPage/:id" component={QnAPage} />
                 <Route exact path="/InformationPage/:id" component={InformationPage} />
+                <Route exact path="/searchPage/:id" component={SearchPage} />
                 
                 <Route exact path="/CollectionPage/:id" component={ CollectionPage } />
                 <Route excct path="/mylikes" component={LikePage} />

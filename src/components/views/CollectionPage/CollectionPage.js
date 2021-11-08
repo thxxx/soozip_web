@@ -55,6 +55,9 @@ const CollectionPage = (props) => {
     }
 
     useEffect(() => {
+        if(loading === false){
+            window.scrollTo({top:0, left:0, behavior:'smooth'});
+        }
         getThisCollection();
     },[update])
 
@@ -166,7 +169,7 @@ const CollectionPage = (props) => {
                                 state:{
                                     data:item
                                 }
-                            }} className="similar-collections-one" onClick={() => {
+                            }} className="similar-collections-one" key={index} onClick={() => {
                                 setUpdate(!update);
                                 window.scrollTo({top:0, left:100, behavior:'smooth'});
                                 }}>

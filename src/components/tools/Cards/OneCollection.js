@@ -96,8 +96,6 @@ const OneCollection = ({item,isOwner, isEditing}) => {
                 </div>
             </Link>
             }
-            
-
 
             {isOwner && isEditing ? <>
             <button onClick={onClickDelete}>Delete</button>

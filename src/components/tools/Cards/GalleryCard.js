@@ -20,7 +20,7 @@ const GalleryCard = ({data}) => {
                 <div className="types">
                     {data.typess && data.typess.map((item, index) => {
                         return (
-                            <span className="gallery-card-type"># {item.slice(2,)}</span>
+                            <span className="gallery-card-type" key={index}># {item.slice(2,)}</span>
                         )
                     })}
                 </div>   

@@ -9,6 +9,8 @@ import makeAnimated from 'react-select/animated';
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
 import './Sections/MakeGallery.css'
 
+const animatedComponents = makeAnimated();
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -31,19 +33,18 @@ const ProfilePage = (props) => {
     const [galleryName, setGalleryName] = useState("");
     const [galleryDesc, setGalleryDesc] = useState("");
     const [galleryColor, setGalleryColor] = useState("");
-    const [galleryLeftColor, setGalleryLeftColor] = useState("white");
-    const [galleryRightColor, setGalleryRightColor] = useState("white");
     const [galleryTypes, setGalleryTypes] = useState([]);
     const [hasGallery, setHasGallery] = useState(true);
     const [loading, setLoading] = useState(false);
     const [myCollections, setMyCollections] = useState([]);
     const [myGallery, setMyGallery] = useState([]);
-    const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(false);
     const [typess, setTypess] = useState([]);
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [showemoji, setShowemoji] = useState("none");
     const history = useHistory();
+    const [boundary, setBoundary] = useState("")
+    const [boundaries, setBoundaries] = useState([])
     
     const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
@@ -78,8 +79,7 @@ const ProfilePage = (props) => {
             setGalleryDesc(myGallery[0].desc);
             setGalleryColor(myGallery[0].color);
             setGalleryTypes(myGallery[0].typess);
-            setGalleryLeftColor(myGallery[0].left_color);
-            setGalleryRightColor(myGallery[0].right_color);
+            setBoundaries(myGallery[0].boundaries);
         }else{
             setMyCollections([]);
         }
@@ -107,8 +107,7 @@ const ProfilePage = (props) => {
             desc:galleryDesc,
             galleryName:galleryName,
             displayName:userName,
-            left_color:galleryLeftColor,
-            right_color:galleryRightColor
+            boundaries:boundaries,
         })
         alert("수정이 완료되었습니다!")
         setUpdate(!update);
@@ -121,8 +120,22 @@ const ProfilePage = (props) => {
         e.forEach(i => {
             tts.push(i.label)
         });
-
         setTypess(tts)
+    }
+
+    const changeBoundary = (e) => {
+        if(e.currentTarget.value.includes(" ")){
+            setBoundaries([...boundaries, e.currentTarget.value])
+            setBoundary("")
+        }else{
+            setBoundary(e.currentTarget.value)
+        }
+    }
+
+    const deleteBoundaries = (item) => {
+        let modifiedTags = boundaries.filter(d => d !== item)
+        console.log("삭제", item)
+        setBoundaries([...modifiedTags])
     }
 
     if(hasGallery){
@@ -155,7 +168,7 @@ const ProfilePage = (props) => {
                                     native
                                 />
                             </div>
-                            <span onClick={showEmojiSelect} className="emojiSelect" >이모지 선택</span>
+                            <span onClick={showEmojiSelect} className="emojiSelect" >이모지 선택하기 클릭</span>
                             <input autoSize={{ minRows: 1, maxRows: 2 }} placeholder="갤러리 이름" 
                                 className="nameInput" 
                                 value={galleryName} 
@@ -172,24 +185,31 @@ const ProfilePage = (props) => {
                             ></textarea>
                             <div style={{marginTop:'10%'}}>
                             <p className="inputLabel" style={{fontSize:"15px"}}>갤러리의 타입을 선택해주세요</p>
-                            {/* <Select
+                            <Select
                                 closeMenuOnSelect={false}
                                 components={animatedComponents}
-                                options={typeSelect} 
-                                onChange={changeTypes}
+                                defaultValue={[typeSelect[4]]}
                                 isMulti
-                            /> */}
-                                {/* <Select options={types} onChange={e => {setType(e.label); console.log(e.label)}} /> */}
+                                options={typeSelect}
+                                onChange={changeTypes}
+                            />
                             </div>
                             <div style={{marginTop:'10%'}}>
                                 <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 메인 색상을 정해보세요</p>
                                 <input type="color" value={galleryColor} onChange={e => setGalleryColor(e.currentTarget.value)}/>
                             </div>
-                            <div style={{marginTop:'10%'}}>
-                                <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 배경 색상을 정해보세요</p>
-                                <input type="color" value={galleryLeftColor} onChange={e => setGalleryLeftColor(e.currentTarget.value)}/>
-                                <input type="color" value={galleryRightColor} onChange={e => setGalleryRightColor(e.currentTarget.value)}/>
+                            {/* 해시태그 받기*/}
+                            <div style={{marginTop:'1%'}}>
+                                <p className="inputLabel" style={{fontSize:"15px"}}>수집공간의 방을 만들어주세요. (스페이스바를 누르면 방이 구분됩니다.)</p>
+                                {
+                                boundaries.length >= 1 ? boundaries.map((item, index) => {
+                                    return(
+                                        <span key={index}>#{item} <span style={{cursor:'pointer'}} onClick={() => deleteBoundaries(item)}>x</span></span>
+                                    )
+                                }) : null }
+                                <input style={{marginTop:'1%'}} autoSize={{ minRows: 1, maxRows: 2 }} placeholder="해시태그" className="nameInput" value={boundary} onChange={changeBoundary}></input>
                             </div>
+                            
                             <div>
                             <button className="inputButton" onClick={changeGalleryInto}>등록하기</button>
                             </div>

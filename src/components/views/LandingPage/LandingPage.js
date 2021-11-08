@@ -171,7 +171,7 @@ const LandingPage = ({isLoggedIn}) => {
         <div className="landingcontainer">
             <BigGalleryList />
             <div className="landing-bottom-container">
-                <TypeTable top="50%"/>
+            <TypeTable top="50%"/>
 
             <div className="landing-bottom-container-right">
                 <div className="gallery-rankings">
@@ -180,8 +180,13 @@ const LandingPage = ({isLoggedIn}) => {
 
                 <div className="qna-table-container">
                     <div className="qna-table-title">
-                        <span>갤러리</span>
-                        <Link to="allgalleries" className="more-look-button">+ 갤러리 더보기</Link>
+                        <div style={{display:'flex', flexDirection:'column'}}>
+                            <span>수집공간</span>
+                            <span style={{fontSize:'14px'}}>
+                                수집가들의 개성 넘치는 수집공간을 둘러보세요
+                            </span>
+                        </div>
+                        <Link to="allgalleries" className="more-look-button">+ 수집공간 더보기</Link>
                     </div>
                     <div className="landing-qna-table">
                         {galleryTable}
@@ -190,14 +195,19 @@ const LandingPage = ({isLoggedIn}) => {
 
                 <div className="qna-table-container">
                     <div className="qna-table-title">
-                        <span>컬렉션</span>
+                        <div style={{display:'flex', flexDirection:'column'}}>
+                            <span>컬렉션</span>
+                            <span style={{fontSize:'14px'}}>
+                                Soozip가들의 감각넘치는 아이템을 구경해보세요.
+                            </span>
+                        </div>
                         <Link to="allcollections" className="more-look-button">+ 컬렉션 더보기</Link>
                     </div>
                     <div className="landing-qna-table">
                         {collectionTable}
                     </div>
                 </div>
-
+{/* 
                 <div className="qna-table-container">
                     <div className="qna-table-title">
                         <span>🍯 꿀정보 교환소</span>
@@ -216,14 +226,14 @@ const LandingPage = ({isLoggedIn}) => {
                     <div className="landing-qna-table">
                         {qnaTable}
                     </div>
-                </div>
+                </div> */}
             </div>
             </div>
 
             {isLoggedIn ? <>
             <Link to="upload" className="upload-button">컬렉션 등록하기</Link> 
-            <Link to="uploadQnA" className="upload-button" style={{right:300}}>질문 등록하기</Link> 
-            <Link to="uploadInformation" className="upload-button" style={{right:800}}>정보 등록하기</Link> 
+            {/* <Link to="uploadQnA" className="upload-button" style={{right:300}}>질문 등록하기</Link> 
+            <Link to="uploadInformation" className="upload-button" style={{right:800}}>정보 등록하기</Link>  */}
             </>: 
             <span className="upload-button" onClick={handleOpen}>컬렉션 등록하기</span>
             }
