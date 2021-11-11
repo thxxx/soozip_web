@@ -25,8 +25,11 @@ const GalleryCard = ({data}) => {
                     })}
                 </div>   
                 <div className="namecon">
-                    <span>{data.collection_num}개의 컬렉션이 전시되어 있고</span>
-                    <span>{data.like_num}개의 좋아요를 받았습니다.</span>
+                    <span>{data.collection_num}개의 컬렉션이 전시</span>
+                    <div>
+                    <span>{data.like_num}개의 좋아요</span>
+                    <span>{data.hit_num}개의 HIT!</span>
+                    </div>
                 </div>
                 </div>
             </div>

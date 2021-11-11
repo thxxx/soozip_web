@@ -18,8 +18,7 @@ const style = {
     p: 4,
 };
 
-const LoginModal = ({openDown}) => {
-    const [open, setOpen] = useState(false);
+const LoginModal = ({open, setOpen}) => {
 
     const handleClose = () => setOpen(false);
 
@@ -40,12 +39,12 @@ const LoginModal = ({openDown}) => {
                 >
                     <Box sx={style}>
                     <div className="update-body">
-                        <span style={{width: '100%'}}>
-                        <p className="login-desc">3초만에 로그인하고 시작하기</p>
-
+                        <span style={{width: '100%', flexDirection:'column', display:'flex'}}>
+                            <span className="login-desc" style={{fontFamily:'Noto Sans KR', fontWeight:'600', marginTop:'30px', paddingLeft:'0px'}}>3초만에 로그인하고 soozip하기</span>
+                            <span className="login-desc" style={{fontFamily:'Noto Sans KR', fontSize:'16px', fontWeight:'500', marginTop:'0px', paddingTop:'0px', paddingLeft:'0px'}}>같은 취미를 공유하는 사람들과 소통해 보세요.</span>
                         </span>
                         <span style={{width: '100%'}}>
-                            <button onClick={onSocialClick} className="google-login"><FaIcons.FaGoogle /> <span> </span> Google 로그인</button>
+                            <button onClick={onSocialClick} className="google-login" style={{marginTop:'30px',}}><FaIcons.FaGoogle /> <span> </span> Google 로그인</button>
                         </span>
                         <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
                         <span onClick={handleClose} className="cancel-button">

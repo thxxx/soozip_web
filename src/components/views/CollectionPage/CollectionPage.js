@@ -36,22 +36,31 @@ const CollectionPage = (props) => {
             galleryLikeNum:dbgal[0].like_num,
             galleryDesc:dbgal[0].desc,
         })
-        setLoading(true);
 
         const dbSimilarDatas = await dbService
             .collection("collections")
             .where("type", "==", dbcol.type)
             .where("title", "!=", dbcol.title)
-            .limit(5)
             .get()
     
         let dbsim = dbSimilarDatas.docs.map(doc => {
             return({...doc.data(), id:doc.id})
         });
-        
-        setSimilarItem(dbsim)
+
+        const dbsims = [];
+        let randomNum;
+        let randomNumList = [];
+        while(dbsims.length < 5 && dbsims.length !== dbsim.length ){
+            randomNum = Math.floor(Math.random() * dbsim.length);
+            if(randomNumList.includes(randomNum)){
+                continue;
+            }
+            dbsims.push(dbsim[randomNum]);
+            randomNumList.push(randomNum);
+        }
         //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
-        console.log(dbsim)
+        setSimilarItem(dbsims);
+        setLoading(true);
     }
 
     useEffect(() => {
@@ -84,7 +93,7 @@ const CollectionPage = (props) => {
             await dbService.doc(`collections/${item.id}`).update({
                 like_num:item.like_num + 1,
             });
-            alert("I like it!");
+            alert("좋아요를 누르셨습니다!");
             setUpdate(!update);
         }else{
             alert("이미 좋아요를 눌렀습니다.")
@@ -103,7 +112,7 @@ const CollectionPage = (props) => {
                                 <span style={{fontWeight:'600', color:'#4060AB'}}>{item.galleryCollectionNum}</span>개의 수집품이 전시되어있고 <span style={{fontWeight:'600', color:'#4060AB'}}>{item.galleryLikeNum}</span>번 수집되셨습니다.
                             </span>
                             <span className="gallery-title" style={{fontSize:'18px', marginTop:'5px'}}>
-                                {item.galleryName}
+                                {item.galleryName} ↗
                             </span>
                             <div className="gallery-type-table">
                                 {loading && item.galleryTypes.map((item, index) => {
@@ -123,10 +132,11 @@ const CollectionPage = (props) => {
                             }
                         <div className="collection-title-top">
                             <span className="collection-title">{item.title}</span>
+                            <span>{item.type}</span>
                         </div>
                         <div className="collection-title-bottom">
                             <span className="collection-owner">{item.displayName}님의 애정이 담긴 물건입니다 - </span>
-                            <span className="collection-date">{Date(item.created)}</span>
+                            <span className="collection-date">{item.created}</span>
                         </div>
                     </div>
                     <div className="image-container">
@@ -144,8 +154,7 @@ const CollectionPage = (props) => {
                         </span>
                         <span className="like-container">
                             <span onClick={addLike} className="collection-like-button">
-                                <FaIcons.FaRegHeart color="white" size="30px"/>
-                                <span className="like-desc">{item.like_num}</span>
+                                <span className="like-desc">{item.like_num}번의 Hit!</span>
                             </span>
                         </span>
                     </div>
@@ -159,10 +168,8 @@ const CollectionPage = (props) => {
                     </span>
                     <div className="similar-collections-list">
                     {similarItem.map((item, index) => {
-                        
                         let date = new Date(item.created);
                         let now = new Date();
-
                         return (
                             <Link to={{
                                 pathname:`/CollectionPage/${item.id}`,

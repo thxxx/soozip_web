@@ -18,8 +18,6 @@ const MakeGallery = ({userObj}) => {
     const [desc, setDesc] = useState("");
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [showemoji, setShowemoji] = useState("none");
-    const [galleryLeftColor, setGalleryLeftColor] = useState("white");
-    const [galleryRightColor, setGalleryRightColor] = useState("white");
 
     const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
@@ -44,9 +42,8 @@ const MakeGallery = ({userObj}) => {
             like_num:0,
             comment_num:0,
             collection_num:0,
+            hit_num:0,
             typess:typess,
-            left_color:galleryLeftColor,
-            right_color:galleryRightColor
         };
 
         await dbService.collection("users").add(galleryOne)
@@ -112,11 +109,6 @@ const MakeGallery = ({userObj}) => {
                         <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 메인 색상을 정해보세요</p>
                         <input type="color" value={color} onChange={e => setColor(e.currentTarget.value)}/>
                     </div>
-                        <div style={{marginTop:'10%'}}>
-                            <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 배경 색상을 정해보세요</p>
-                            <input type="color" value={galleryLeftColor} onChange={e => setGalleryLeftColor(e.currentTarget.value)}/>
-                            <input type="color" value={galleryRightColor} onChange={e => setGalleryRightColor(e.currentTarget.value)}/>
-                        </div>
                     <div>
                     <button className="inputButton" onClick={submitGallery}>등록하기</button>
                     </div>

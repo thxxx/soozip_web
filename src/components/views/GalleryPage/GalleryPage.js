@@ -1,15 +1,13 @@
 import React, {useEffect, useState,useRef} from 'react'
 import './Sections/GalleryPage.css'
 import { dbService } from '../../tools/fbase';
-import OneCollection from '../../tools/Cards/OneCollection';
 import {authService} from '../../tools/fbase';
 import CollectionList from './Sections/CollectionList';
 import CommentContainer from '../../tools/CommentContainer';
 import * as FaIcons from 'react-icons/fa';
-import Button from '@mui/material/Button';
-import * as AiIcons from 'react-icons/ai';
 import {Link} from 'react-router-dom'
 import TypeTable from '../../tools/TypeTable';
+import LoginModal from '../../tools/Modal/LoginModal'
 
 const GalleryPage = (props) => {
     const targets = useRef(null);
@@ -20,6 +18,7 @@ const GalleryPage = (props) => {
     const [colLoading, setColLoading] = useState(false);
     const User = authService.currentUser;
     const [isEditing, setIsEditing] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const scrollDown = () => {
         // const target = document.getElementById('second')
@@ -72,6 +71,10 @@ const GalleryPage = (props) => {
     },[update, loading, props.match.params.id])
 
     const addLike = async () => {
+        if(!User){
+            setOpen(true);
+            return;
+        }
         // 좋아요를 누른 적 있는지 체크해야한다.
         const dbLike = await dbService
             .collection("users_like")
@@ -91,7 +94,7 @@ const GalleryPage = (props) => {
             await dbService.doc(`users/${item.id}`).update({
                 like_num:item.like_num + 1,
             });
-            alert("I like it!");
+            alert("좋아요를 누르셨습니다!");
             getThisGallery();
         }else{
             const ok = window.confirm("이미 좋아요를 누르셨습니다. 취소하시겠습니까?");
@@ -112,11 +115,18 @@ const GalleryPage = (props) => {
     }
 
     const addHit = async () => {
-        if(item.id != User.uid)
-        await dbService.doc(`users/${item.id}`).update({
-            hit_num: item.hit_num + 1
-        });
-        getThisGallery();
+        if(!User){
+            setOpen(true);
+            return;
+        }
+        if(item.userId != User.uid){
+            await dbService.doc(`users/${item.id}`).update({
+                hit_num: item.hit_num + 1
+            });
+            getThisGallery();
+        }else{
+            alert("자기 자신은 Hit할 수 없습니다!");
+        }
     }
 
     const array_hot = () => {
@@ -137,16 +147,15 @@ const GalleryPage = (props) => {
         setUpdate(!update);
     }
 
-    
     return (
         <div className="gallery-container">
-            <TypeTable top="20%"/>
+            <TypeTable top="15%"/>
             <div className="gallery-header">
                 {/* 만약 내 갤러리라면? */}
                 { User ? item.userId === User.uid && 
                 <span className="if-my-gallery">
                     이곳은 내 갤러리 입니다.
-                    { isEditing ? <Button onClick={editOpen} style={{backgroundColor:'blue'}}>완료하기</Button> : <>
+                    { isEditing ? <span onClick={editOpen} className="collection-delete-button" style={{backgroundColor:'blue'}}>완료하기</span> : <>
                         <span onClick={editOpen} className="collection-delete-button">컬렉션 삭제하기</span>
                         <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>
                             갤러리 정보수정
@@ -164,7 +173,8 @@ const GalleryPage = (props) => {
                         <span style={{fontWeight:'600', color:'#4060AB'}}>{item.collection_num}</span>개의 수집품이 전시되어있고 <span style={{fontWeight:'600', color:'#4060AB'}}>{item.like_num}</span>번 수집되셨습니다.
                     </span>
                 </div>
-                <span className="gallery-owner">
+                <span className="gallery-owner" style={{backgroundColor:`${item.color}`}}>
+                    <div className="inWrapper">
                     <span className="gallery-title">
                         {item.galleryName}
                     </span>
@@ -178,6 +188,7 @@ const GalleryPage = (props) => {
                             )
                         })}
                     </div>
+                    </div>
                 </span>
 
                 <div className="side-actions">
@@ -186,7 +197,7 @@ const GalleryPage = (props) => {
                         <span className="num">{item.hit_num}</span>
                     </span>
                     <span className="action-component" onClick={addLike}>
-                        <FaIcons.FaRegBookmark color="5555ff" size="30px"/>
+                        <FaIcons.FaRegHeart color="62A1B0" size="25px"/>
                         <span className="num">{item.like_num}</span>
                     </span>
                     <span className="action-component" onClick={scrollDown}>
@@ -213,6 +224,8 @@ const GalleryPage = (props) => {
             {/* 댓글을 달고 보여주는 공간 */}
 
             <div ref={targets} ></div>
+
+            <LoginModal open={open} setOpen={setOpen}/>
 
             { loading && <CommentContainer category="g_comments" setLoading={setLoading} contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
 

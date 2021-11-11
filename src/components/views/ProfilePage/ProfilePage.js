@@ -43,8 +43,6 @@ const ProfilePage = (props) => {
     const [chosenEmoji, setChosenEmoji] = useState(null);
     const [showemoji, setShowemoji] = useState("none");
     const history = useHistory();
-    const [boundary, setBoundary] = useState("")
-    const [boundaries, setBoundaries] = useState([])
     
     const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
@@ -79,7 +77,6 @@ const ProfilePage = (props) => {
             setGalleryDesc(myGallery[0].desc);
             setGalleryColor(myGallery[0].color);
             setGalleryTypes(myGallery[0].typess);
-            setBoundaries(myGallery[0].boundaries);
         }else{
             setMyCollections([]);
         }
@@ -107,7 +104,6 @@ const ProfilePage = (props) => {
             desc:galleryDesc,
             galleryName:galleryName,
             displayName:userName,
-            boundaries:boundaries,
         })
         alert("수정이 완료되었습니다!")
         setUpdate(!update);
@@ -121,21 +117,6 @@ const ProfilePage = (props) => {
             tts.push(i.label)
         });
         setTypess(tts)
-    }
-
-    const changeBoundary = (e) => {
-        if(e.currentTarget.value.includes(" ")){
-            setBoundaries([...boundaries, e.currentTarget.value])
-            setBoundary("")
-        }else{
-            setBoundary(e.currentTarget.value)
-        }
-    }
-
-    const deleteBoundaries = (item) => {
-        let modifiedTags = boundaries.filter(d => d !== item)
-        console.log("삭제", item)
-        setBoundaries([...modifiedTags])
     }
 
     if(hasGallery){
@@ -198,7 +179,7 @@ const ProfilePage = (props) => {
                                 <p className="inputLabel" style={{fontSize:"15px"}}>나의 공간의 메인 색상을 정해보세요</p>
                                 <input type="color" value={galleryColor} onChange={e => setGalleryColor(e.currentTarget.value)}/>
                             </div>
-                            {/* 해시태그 받기*/}
+                            {/* 해시태그 받기
                             <div style={{marginTop:'1%'}}>
                                 <p className="inputLabel" style={{fontSize:"15px"}}>수집공간의 방을 만들어주세요. (스페이스바를 누르면 방이 구분됩니다.)</p>
                                 {
@@ -208,7 +189,7 @@ const ProfilePage = (props) => {
                                     )
                                 }) : null }
                                 <input style={{marginTop:'1%'}} autoSize={{ minRows: 1, maxRows: 2 }} placeholder="해시태그" className="nameInput" value={boundary} onChange={changeBoundary}></input>
-                            </div>
+                            </div> */}
                             
                             <div>
                             <button className="inputButton" onClick={changeGalleryInto}>등록하기</button>

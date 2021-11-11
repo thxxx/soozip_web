@@ -5,23 +5,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SideBarData } from './Sections/SideBarData';
 import {firebaseInstance, authService } from '../../tools/fbase';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    borderRadius: '15px',
-    border: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: 24,
-    p: 4,
-};
-
+import LoginModal from '../../tools/Modal/LoginModal'
 
 const NavBar = ({isLoggedIn, userObj}) => {
     const [sidebar, setSidebar] = useState(false);
@@ -31,8 +15,6 @@ const NavBar = ({isLoggedIn, userObj}) => {
     const handleOpen = () => {
         setOpen(true);
     }
-
-    const handleClose = () => setOpen(false);
 
     const showSidebar = () => {
         setSidebar(!sidebar);
@@ -83,16 +65,7 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                     <li key={index} className={item.cName}>
                                         <span to={item.path} onClick={handleOpen}>
                                             {item.icon}
-                                            <span style={{color:'white'}}>{item.title}</span>
-                                        </span>
-                                    </li>
-                                )
-                            }else if(!isLoggedIn && item.title === "my likes"){
-                                return(
-                                    <li key={index} className={item.cName}>
-                                        <span to={item.path} onClick={handleOpen}>
-                                            {item.icon}
-                                            <span style={{color:'white'}}>{item.title}</span>
+                                            <span className="sidbarTitle" style={{color:'white'}}>{item.title}</span>
                                         </span>
                                     </li>
                                 )
@@ -104,7 +77,7 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                                 pathname:`/gallery/${userObj.gal_id}`
                                             }}>
                                                 {item.icon}
-                                                <span>{item.title}</span>
+                                                <span className="sidbarTitle">{item.title}</span>
                                             </Link>
                                         </li>
                                     )
@@ -115,7 +88,7 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                                 pathname:`/profile`
                                             }}>
                                                 {item.icon}
-                                                <span>{item.title}</span>
+                                                <span className="sidbarTitle">{item.title}</span>
                                             </Link>
                                         </li>
                                     )
@@ -126,7 +99,7 @@ const NavBar = ({isLoggedIn, userObj}) => {
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path}>
                                         {item.icon}
-                                        <span>{item.title}</span>
+                                        <span className="sidbarTitle">{item.title}</span>
                                     </Link>
                                 </li>
                                 )
@@ -134,41 +107,19 @@ const NavBar = ({isLoggedIn, userObj}) => {
                         })}
                         <li className="nav-text">
                             <a href="https://6cetqycakbc.typeform.com/to/oRcv6Qdu" target="_black">
-                                🙋🏻 <span>의견 제공 및 문의하기</span>
+                                🙋🏻 <span className="sidbarTitle">의견 제공 및 문의하기</span>
                             </a>
                         </li>
                         <li className="nav-text">
                             <a href="https://www.instagram.com/soozip_ga/" target="_black">
-                                <AiIcons.AiOutlineInstagram/> <span>Instagram</span>
+                                <AiIcons.AiOutlineInstagram/> <span className="sidbarTitle">Instagram</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
 
             {/* 아래는 수정용 모달. */}
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                <div className="update-body">
-                    <span style={{width: '100%'}}>
-                    <p className="login-desc">3초만에 로그인하고 시작하기</p>
-
-                    </span>
-                    <span style={{width: '100%'}}>
-                        <button onClick={onSocialClick} className="google-login">Google 로그인</button>
-                    </span>
-                    <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
-                    <Button onClick={handleClose} style={{ marginLeft:10, color:'black',backgroundColor:'#993333', width:'10%'}}>
-                        닫기
-                    </Button>
-                    </div>
-                </div>
-                </Box>
-            </Modal>
+            <LoginModal open={open} setOpen={setOpen} />
         </div>
     )
 }

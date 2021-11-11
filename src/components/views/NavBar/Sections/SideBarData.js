@@ -17,12 +17,6 @@ export const SideBarData = [
         cName: 'nav-text'
     },
     {
-        title:'my likes',
-        path:'/mylikes',
-        icon: "👍",
-        cName: 'nav-text'
-    },
-    {
         title:'내 정보 수정하기',
         path:'/update',
         icon: "📑",

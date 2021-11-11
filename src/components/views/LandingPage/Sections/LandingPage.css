@@ -29,6 +29,7 @@
   bottom:50px;
   right:5%;
   color:white;
+  cursor: pointer;
   /* text-decoration:none; */
 }
 
@@ -79,7 +80,7 @@
   padding-left:3%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
 }
@@ -94,17 +95,16 @@
 }
 
 .more-look-button{
-  border:1px solid blue;
+  border:1px solid #62A1B0;
   font-size:15px;
   font-family: EliceBold;
-  width:120px;
+  width:200px;
   height:35px;
-  border-radius:10px;
-  color:blue;
+  border-radius:50px;
+  color:#62A1B0;
   display:flex;
   justify-content:center;
   align-items: center;
-  margin-left: 3%;
   text-decoration: none;
 }
 .one-collection-type{

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useHistory} from 'react'
 import './Sections/UploadPage.css'
 import Button from '@material-ui/core/Button';
 import { Input } from 'antd';
@@ -34,7 +34,7 @@ function UploadPage({userObj}) {
         const collectionOne = {
             title,
             desc,
-            created:Date(),
+            created:Date.now(),
             creatorId:userObj.uid, // uid가 아이디를 뜻함.
             attachmentURL:attachmentURL,
             like_num:0,
@@ -91,7 +91,7 @@ function UploadPage({userObj}) {
 
     const deleteTag = (item) => {
         let modifiedTags = tags.filter(d => d !== item)
-        console.log("삭제", item)
+        console.log("삭제")
         setTags([...modifiedTags])
     }
 

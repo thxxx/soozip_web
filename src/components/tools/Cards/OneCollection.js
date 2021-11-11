@@ -6,7 +6,7 @@ import {stService} from '../../tools/fbase';
 
 const OneCollection = ({item,isOwner, isEditing}) => {
     const onClickDelete = async () => {
-        const ok = window.confirm("Are you sure you want to delete?");
+        const ok = window.confirm("정말로 삭제하시겠습니까?");
         if(ok){
 
             const dbgallery = await dbService
@@ -24,7 +24,6 @@ const OneCollection = ({item,isOwner, isEditing}) => {
 
             // 댓글 목록에서도 지워야한다.
             
-
             //delete 파일도 같이 지워져야만 한다.
             await dbService.doc(`collections/${item.id}`).delete();
             await stService.refFromURL(item.attachmentURL).delete(); // URL만 가지고도 refence를 획득할 수 있게 해준다.
@@ -98,8 +97,10 @@ const OneCollection = ({item,isOwner, isEditing}) => {
             }
 
             {isOwner && isEditing ? <>
-            <button onClick={onClickDelete}>Delete</button>
-            <button onClick={onClickGalleryMain}>대표 사진으로 등록</button>
+            <div style={{display:'flex', flexDirection:'row', fontSize:'14px'}}>
+            <span style={{cursor:'pointer'}} onClick={onClickDelete}>Delete</span>
+            <span style={{cursor:'pointer'}} onClick={onClickGalleryMain}>대표 사진으로 등록</span>
+            </div>
             {/* <button>Update</button> */}
             </> : null }
         </div>

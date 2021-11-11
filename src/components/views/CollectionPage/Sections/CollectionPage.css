@@ -175,14 +175,15 @@
 }
 
 .collection-like-button{
-    width:80px;
+    width:50%;
     height:50px;
-    border-radius: 7px;
+    border-radius: 3px;
     display: flex;
     justify-content:center;
     align-items:center;
     cursor: pointer;
-    background-color:#5555ff;
+    background-color:#62A1B0;
+    ;
 }
 
 .like-desc{
