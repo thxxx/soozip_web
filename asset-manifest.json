@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/soozip_web/static/css/main.e8408b2f.chunk.css",
-    "main.js": "/soozip_web/static/js/main.4ca2a737.chunk.js",
+    "main.js": "/soozip_web/static/js/main.a1aca0a6.chunk.js",
     "runtime-main.js": "/soozip_web/static/js/runtime-main.c3883cc9.js",
-    "static/js/2.d913234e.chunk.js": "/soozip_web/static/js/2.d913234e.chunk.js",
+    "static/js/2.5f7bf440.chunk.js": "/soozip_web/static/js/2.5f7bf440.chunk.js",
     "static/js/3.7b969fbc.chunk.js": "/soozip_web/static/js/3.7b969fbc.chunk.js",
     "index.html": "/soozip_web/index.html",
-    "static/js/2.d913234e.chunk.js.LICENSE.txt": "/soozip_web/static/js/2.d913234e.chunk.js.LICENSE.txt",
+    "static/js/2.5f7bf440.chunk.js.LICENSE.txt": "/soozip_web/static/js/2.5f7bf440.chunk.js.LICENSE.txt",
     "static/media/gallery.bb4e9981.png": "/soozip_web/static/media/gallery.bb4e9981.png",
     "static/media/logo.6ce24c58.svg": "/soozip_web/static/media/logo.6ce24c58.svg",
     "static/media/slide_first.4d72ea2b.png": "/soozip_web/static/media/slide_first.4d72ea2b.png",
@@ -16,8 +16,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c3883cc9.js",
-    "static/js/2.d913234e.chunk.js",
+    "static/js/2.5f7bf440.chunk.js",
     "static/css/main.e8408b2f.chunk.css",
-    "static/js/main.4ca2a737.chunk.js"
+    "static/js/main.a1aca0a6.chunk.js"
   ]
 }
