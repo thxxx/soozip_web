@@ -1,7 +1,7 @@
 import React, {useEffect, useState,useRef} from 'react'
 import './Sections/GalleryPage.css'
 import { dbService } from '../../tools/fbase';
-import {authService} from '../../tools/fbase';
+import { authService } from '../../tools/fbase';
 import CollectionList from './Sections/CollectionList';
 import CommentContainer from '../../tools/CommentContainer';
 import * as FaIcons from 'react-icons/fa';
@@ -19,6 +19,7 @@ const GalleryPage = (props) => {
     const User = authService.currentUser;
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
+    const [mine, setMine] = useState([]);
 
     const scrollDown = () => {
         // const target = document.getElementById('second')
@@ -44,8 +45,9 @@ const GalleryPage = (props) => {
             ));
             setColLoading(true);
         }
-        //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
+        // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
     }
+
     const getThisGallery = async (isSubscribed) => {
         console.log("갤러리까지 렌더링")
         const dbgallery = await dbService
@@ -54,6 +56,17 @@ const GalleryPage = (props) => {
         .get()
         .then(snapshot => setItem({...snapshot.data(), id:snapshot.id}));
         //     // set이 붙는 함수를 쓸 때 값이 아니라 함수를 전달할 수 있다.
+
+        if(User){
+            const galleryDatasss = await dbService
+            .collection("users")
+            .where("userId", "==", User.uid)
+            .get(); // uid를 creatorId로 줬었으니까.
+            let galleryDataee = galleryDatasss.docs.map(doc => {
+                return({...doc.data(), id:doc.id})
+            });
+            setMine(galleryDataee);
+        }
         setLoading(true);
     }
 
@@ -156,7 +169,7 @@ const GalleryPage = (props) => {
                 <span className="if-my-gallery">
                     이곳은 내 갤러리 입니다.
                     { isEditing ? <span onClick={editOpen} className="collection-delete-button" style={{backgroundColor:'blue'}}>완료하기</span> : <>
-                        <span onClick={editOpen} className="collection-delete-button">컬렉션 삭제하기</span>
+                        <span onClick={editOpen} className="collection-delete-button">삭제 및 갤러리 대표사진 등록하기</span>
                         <Link to='/profile' className="collection-delete-button" style={{backgroundColor:'black'}}>
                             갤러리 정보수정
                         </Link>
@@ -227,7 +240,7 @@ const GalleryPage = (props) => {
 
             <LoginModal open={open} setOpen={setOpen}/>
 
-            { loading && <CommentContainer category="g_comments" setLoading={setLoading} contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName}/>}
+            { loading && <CommentContainer category="g_comments" setLoading={setLoading} contentId={item.id} userId={item.userId} contentLikeNum={item.comment_num} displayName={item.displayName} hasGallery={mine.length === 1}/>}
 
             </div>
         </div>

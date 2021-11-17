@@ -31,21 +31,63 @@ function DescriptionPage() {
                     수집공간 꾸미기
                     </div>
                     <div className="desc_one_func_desc">
-                    나만의 수집공간 속에
-                    아이템을 전시하고
-                    나의 작은 전시회를 열어보세요.
+                    나만의 수집공간 속에 아이템을 전시하고 나의 작은 전시회를 열어보세요.
                     </div>
-                    <img alt="2" src={first} className="example_image"/>
+                    <div>
+                        <div style={{margin:'15px 0px'}}>
+                            <span>
+                            <span style={{fontWeight:'bold'}}>1.</span> 오른쪽위의 버튼을 클릭해 로그인한다.
+                            </span>
+                        </div>
+                        <div style={{margin:'15px 0px'}}>
+                            <span>
+                            <span style={{fontWeight:'bold'}}>2.</span> 메인화면에서 내 갤러리를 생성한다.
+                            </span>
+                        </div>
+                        <div style={{margin:'15px 0px'}}>
+                            <span>
+                            <span style={{fontWeight:'bold'}}>3.</span> 🌟 나만의 수집공간을 소유한다.
+                            </span>
+                        </div>
+                    </div>
+                        <span>
+                            <img src={first} width={150} height={50} alt="alt"/>
+                            <img src={first} width={150} height={50} alt="alt"/>
+                            <img src={first} width={150} height={50} alt="alt"/>
+                        </span>
+                    <div style={{display:'flex', justifyContent:'center', width:'100%'}}>
+                    {/* <img alt="2" src={first} className="example_image"/> */}
+                    </div>
                 </div>
                 <div className="desc_one_func">
                     <div className="desc_one_func_title">
                     아이템 전시하기
                     </div>
                     <div className="desc_one_func_desc">
-                    나의 수집 아이템을 다른 Soozip가들과 공유하고
-                    이에 대한 감상을 나누어보세요.
+                    나의 수집 아이템을 다른 Soozip가들과 공유하고 이에 대한 감상을 나누어보세요.
                     </div>
-                    <img alt="2" src="./gallery.png" className="example_image"/>
+                    <div>
+                        <div style={{margin:'15px 0px'}}>
+                            <span>
+                            <span style={{fontWeight:'bold'}}>1.</span> 메인화면에서 컬렉션을 등록할 수 있습니다.
+                            </span>
+                            <span>
+                                {/* <img src={first} width={150} height={50} /> */}
+                            </span>
+                        </div>
+                        <div style={{margin:'15px 0px'}}>
+                            <span>
+                            <span style={{fontWeight:'bold'}}>2.</span> <span style={{color:'#62a0b0', fontWeight:'bold'}}>댓글</span>, <span style={{color:'#62a0b0', fontWeight:'bold'}}>좋아요</span>, <span style={{color:'#62a0b0', fontWeight:'bold'}}>Hit</span>으로 소통합니다. <br /> 
+                            </span>
+                            <span>
+                            Hit은 제한이 없는 내 호감표시로, 마음에 드는 수집공간이 있다면 얼마든지 원하는만큼 눌러서 관심을 표할 수 있습니다.
+                            </span>
+                        </div>
+                        <span>
+                            <img src={first} width={150} height={50} alt="alt"/>
+                            <img src={first} width={150} height={50} alt="alt"/>
+                        </span>
+                    </div>
                 </div>
                 <div className="desc_one_func">
                     <div className="desc_one_func_title">
@@ -64,7 +106,7 @@ function DescriptionPage() {
                     <div className="desc_one_func_desc">
                     개성 넘치는 수집공간 속에서
                     Soozip가들의 수집품을 감상하고
-                    다양한 의견을 주고 받아보세요.
+                    다양한 의견을 주고 받아보세요!
                     </div>
                 </div>
             </div>

@@ -44,6 +44,7 @@ const NavBar = ({isLoggedIn, userObj}) => {
                     }} className="search-button">검색</Link>
                 </span>
                 <span className="nav-on">
+                    <Link to="/soozip_help" className="site_description_button" style={{marginRight:'0px'}}>도움을 주세요🙇🏻</Link>
                     <Link to="/soozip_description" className="site_description_button">사이트 소개</Link>
                     {isLoggedIn ? <span onClick={onLogOutClick} className="login_button">로그아웃</span> : <span onClick={onSocialClick} className="login_button">로그인</span>}
                     {userObj ? <p style={{fontWeight:700}}>{userObj.displayName}</p> : null}

@@ -136,7 +136,7 @@ const CollectionPage = (props) => {
                         </div>
                         <div className="collection-title-bottom">
                             <span className="collection-owner">{item.displayName}님의 애정이 담긴 물건입니다 - </span>
-                            <span className="collection-date">{item.created}</span>
+                            <span className="collection-date">{Date(item.created)}</span>
                         </div>
                     </div>
                     <div className="image-container">

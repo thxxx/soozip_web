@@ -18,6 +18,7 @@ import AllQnAs from './views/AllPages/AllQnAs'
 import AllInformations from './views/AllPages/AllInformations'
 import SearchPage from './views/SeachPage/SearchPage'
 import DescriptionPage from './views/DescriptionPage/DescriptionPage'
+import HelpPage from './views/DescriptionPage/HelpPage'
 
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
@@ -56,6 +57,9 @@ return(
                 <Route exact path="/CollectionPage/:id" component={ CollectionPage } />
                 <Route excct path="/mylikes" component={LikePage} />
                 <Route excct path="/soozip_description" component={DescriptionPage} />
+
+                <Route excct path="/soozip_help" component={HelpPage} />
+
                 <Route exact path="/allcollections">
                     <AllCollections />
                 </Route>

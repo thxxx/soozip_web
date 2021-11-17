@@ -17,8 +17,6 @@ const LandingPage = ({isLoggedIn, userObj}) => {
     const [collections, setCollections] = useState([]);
     const [populars, setPopulars] = useState([]);
     const [mine, setMine] = useState([]);
-    const [qnas, setQnas] = useState([]);
-    const [informations, setInformations] = useState([]);
     const [type, setType] = useState("전체");
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -67,7 +65,7 @@ const LandingPage = ({isLoggedIn, userObj}) => {
     }
 
     const getRealAllCollections = async () => {
-        if(type==="전체"){
+        if(type === "전체"){
             const collectionDatas = await dbService
                 .collection("collections")
                 .orderBy("created", "asc")
@@ -82,88 +80,21 @@ const LandingPage = ({isLoggedIn, userObj}) => {
                 .collection("collections")
                 .orderBy("created", "asc")
                 .where("type", "==", type)
-                .limit(10)
+                .limit(12)
                 .get(); // uid를 creatorId로 줬었으니까.
             let collectionData = collectionDatas.docs.map(doc => {
                 return({...doc.data(), id:doc.id})
             });
             setCollections(collectionData);
         }
-    }
-
-    const getAllInformations = async () => {
-        if(type==="전체"){
-            const infoDatas = await dbService
-                .collection("informations")
-                .limit(6)
-                .get(); // uid를 creatorId로 줬었으니까.
-
-            let infoData = infoDatas.docs.map(doc => {
-                return({...doc.data(), id:doc.id})
-            });
-            setInformations(infoData);
-        }else{
-            const infoDatas = await dbService
-                .collection("informations")
-                .where("type", "==", type)
-                .limit(6)
-                .get(); // uid를 creatorId로 줬었으니까.
-
-            let infoData = infoDatas.docs.map(doc => {
-                return({...doc.data(), id:doc.id})
-            });
-            setInformations(infoData);
-        }
-
-        // if(type==="전체"){
-        //     setInformations(infoData);
-        // }else{
-        //     infoData = infoData.filter(item => item.type === type || item.type === "전체")
-        //     setInformations(infoData);
-        // }
-    }
-
-    const getAllQnAs = async () => {
-        if(type==="전체"){
-            const qnaDatas = await dbService
-                .collection("qnas")
-                .limit(6)
-                .get(); // uid를 creatorId로 줬었으니까.
-
-            let qnaData = qnaDatas.docs.map(doc => {
-                return({...doc.data(), id:doc.id})
-            });
-            setQnas(qnaData);
-        }else{
-            const qnaDatas = await dbService
-                .collection("qnas")
-                .where("type", "==", type)
-                .limit(6)
-                .get(); // uid를 creatorId로 줬었으니까.
-
-            let qnaData = qnaDatas.docs.map(doc => {
-                return({...doc.data(), id:doc.id})
-            });
-            setQnas(qnaData);
-
-        }
         setLoading(true);
     }
+
 
     useEffect(() => {
         getAllCollections();
         getRealAllCollections();
-        getAllInformations();
-        getAllQnAs();
     },[type])
-
-    const galleryRankingTable = galleries.map((item, index) => {
-        return(
-            <div>
-                {item.title}
-            </div>
-            )
-        })
     
     const galleryTable = galleries.map((item, index) => {
         return(
@@ -181,18 +112,6 @@ const LandingPage = ({isLoggedIn, userObj}) => {
             </>
             )
         })
-
-    const qnaTable = qnas.map((item, index) => {
-        return(
-            <QnACard data={item} key={index} />
-        )
-    })
-
-    const informationTable = informations.map((item, index) => {
-        return(
-            <InformationCard data={item} key={index} />
-        )
-    })
 
     const collectionTable = collections.map((item, index) => {
         return(
@@ -221,7 +140,6 @@ const LandingPage = ({isLoggedIn, userObj}) => {
                                 이번주의 인기 갤러리! 4등까지는 매주 특별 선물이 제공됩니다. Hit 수에 따라 결정
                             </span>
                         </div>
-                        <Link to="allgalleries" className="more-look-button" style={{marginLeft:'10%'}}>+ 수집공간 더보기</Link>
                     </div>
                     <div className="landing-qna-table">
                         {galleryTablePopular}
@@ -282,7 +200,7 @@ const LandingPage = ({isLoggedIn, userObj}) => {
 
             {isLoggedIn ? <>
             {mine.length == 0 ? <>
-            <Link to="profile" className="upload-button">갤러리 생성하기</Link>
+            <Link to="profile" className="upload-button" style={{width:'30%'}}>갤러리 생성하기</Link>
              </> : 
             <Link to="upload" className="upload-button">컬렉션 등록하기</Link> 
             }

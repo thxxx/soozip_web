@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './BigGalleryList.css'
 
 import slide_first from '../../../img/slide_first.png'
@@ -20,6 +20,11 @@ const SLIDEMAXNUM = 4;
 const BigGalleryList = () => {
     const [num, setNum] = useState(1);
 
+    useEffect(() => {
+        setTimeout(() => {
+            moveRight();
+        },8000)
+    })
     const moveLeft = () => {
         if(num>1){
             setNum(num - 1)

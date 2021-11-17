@@ -61,10 +61,10 @@ function AllGalleries() {
         return (
             <div className="landingcontainer">
             <div className="all-table-title">
-                    <span style={{fontSize:'2rem'}}>전체 수집공간</span>
-                    <span style={{fontSize:'18px', margin:'3px'}}>soozip가들 각각의 개성 넘치는 수집공간을 감상해보세요. </span>
-                    <span style={{fontSize:'18px', margin:'3px'}}> 컬렉션을 등록해서 내 개성을 표현하고, </span>
-                    <span style={{fontSize:'18px', margin:'3px'}}> 좋아요, Hit, 댓글로 소통해요 </span>
+                    <span style={{fontSize:'2rem'}}>전체 수집공간 ⛪️</span>
+                    <span style={{fontSize:'14px', margin:'3px', marginLeft:'1%'}}>soozip가들 각각의 개성 넘치는 수집공간을 감상해보세요. </span>
+                    <span style={{fontSize:'14px', margin:'3px', marginLeft:'1%'}}> 컬렉션을 등록해서 내 개성을 표현하고, </span>
+                    <span style={{fontSize:'14px', margin:'3px', marginLeft:'1%'}}> 좋아요, Hit, 댓글로 소통해요 </span>
             </div>
             <div className="all-table">
                 <div style={{width:'20%'}}>
@@ -73,8 +73,8 @@ function AllGalleries() {
                 <div className="all-galleries-container">
 
                     <span className="soozip-gury-filter" style={{justifyContent:'start', margin:'2%'}}>
-                        <button className="soozip-gury-select" onClick={array_hot}>핫한 수집거리</button>
-                        <button className="soozip-gury-select" onClick={array_new}>Hit! 수집거리</button>
+                        <button className="soozip-gury-select" onClick={array_hot}>핫한 수집공간</button>
+                        <button className="soozip-gury-select" onClick={array_new}>Hit! 수집공간</button>
                     </span>
                     <div className="qna-table-container" style={{margin:'0%', padding:'0%'}}>
                         <div className="landing-qna-table" style={{margin:'0%', padding:'0%'}}>

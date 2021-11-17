@@ -67,7 +67,7 @@ const MakeGallery = ({userObj}) => {
             <div className="uploadIncontainer">
                 <form onSubmit={submitGallery}>
                     <p className="thanks"> 갤러리 생성하기 </p>
-                    <p className="add-thanks">나만의 개성이 가득담긴 공간을 만들어보세요 </p>
+                    <p className="add-thanks">나만의 개성이 가득담긴 수집공간을 만들어보세요. <br/> 이 안에 나의 컬렉션을 전시하고 다른 사람의 수집공간도 구경할 수 있습니다. </p>
                     <p className="inputLabel">갤러리 이름</p>
                     <p className="inputLabel">ex. 🗽방구석 호그와트</p>
 

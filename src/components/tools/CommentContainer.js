@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom';
-import Button from '@mui/material/Button';
 import {Input} from 'antd'
 import {authService, firebaseInstance, dbService} from './fbase';
 import './CommentContainer.css'
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import LoginModal from './Modal/LoginModal'
+import { useHistory } from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -20,12 +19,13 @@ const style = {
     p: 4,
 };
 
-const CommentContainer = ({category, contentId, userId, contentLikeNum, displayName, setLoading}) => {
+const CommentContainer = ({category, contentId, userId, contentLikeNum, displayName, setLoading, hasGallery}) => {
     const [update, setUpdate] = useState(false);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
     const User = authService.currentUser;
+    let history = useHistory();
 
     useEffect(() => {
         getThisComments();
@@ -33,16 +33,6 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
 
     const handleOpen = () => {
         setOpen(true);
-    }
-
-    const handleClose = () => setOpen(false);
-
-
-    const onSocialClick = async (e) => {
-        //지금은 구글 로그인 밖에 없기때문에 굳이 구분하는 flow를 만들지 않는다.
-        let provider = new firebaseInstance.auth.GoogleAuthProvider();
-        const data = await authService.signInWithPopup(provider);
-        handleClose();
     }
 
     const getThisComments = async () => {
@@ -91,6 +81,11 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
         // 로그인 한 유저여야 한다.
         if(!User){
             handleOpen();
+            return;
+        }
+        if(!hasGallery){
+            alert("우선 갤러리를 생성하셔야합니다.");
+            history.push('/profile');
             return;
         }
 
@@ -379,31 +374,7 @@ const CommentContainer = ({category, contentId, userId, contentLikeNum, displayN
                     작성
                 </span>
             </div>
-
-            {/* 아래는 수정용 모달. */}
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                <div className="update-body">
-                    <span style={{width: '100%'}}>
-                    <p className="login-desc">3초만에 로그인하고 시작하기</p>
-
-                    </span>
-                    <span style={{width: '100%'}}>
-                        <button onClick={onSocialClick} className="google-login">Google 로그인</button>
-                    </span>
-                    <div style={{width: '100%', display:'flex', justifyContent:'end'}}>
-                    <Button onClick={handleClose} style={{ marginLeft:10, color:'black',backgroundColor:'#993333', width:'10%'}}>
-                        닫기
-                    </Button>
-                    </div>
-                </div>
-                </Box>
-            </Modal>
+            <LoginModal open={open} setOpen={setOpen} />
         </div>
     )
 }
