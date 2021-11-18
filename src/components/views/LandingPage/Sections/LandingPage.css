@@ -126,3 +126,29 @@
 .cancel-button:hover{
   color:rgb(10,10,10);
 }
+
+.moblie-hide{
+  display:none;
+}
+.mobile-hide div{
+  display:none;
+}
+
+@media screen and (max-width:800px){
+  .mobile-hide{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    text-align:center;
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:white;
+    top:0px;
+    left:0px;
+    z-index:500;
+  }
+  .mobile-hide div{
+    display:flex;
+  }
+}

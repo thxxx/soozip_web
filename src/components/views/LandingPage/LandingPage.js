@@ -210,6 +210,12 @@ const LandingPage = ({isLoggedIn, userObj}) => {
             <span className="upload-button" onClick={handleOpen}>컬렉션 등록하기</span>
             }
             <LoginModal open={open} setOpen={setOpen}/>
+            <div className="mobile-hide">
+                <div>
+                    본 사이트는 PC환경에 최적화되어있습니다. <br />
+                    이용에 불편을 드려 죄송합니다. 😢
+                </div>
+            </div>
         </div>
         )
     }else{

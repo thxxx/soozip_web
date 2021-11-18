@@ -47,6 +47,12 @@ function App() {
   
   return (
     <>
+    <div className="mobile-hide">
+        <div>
+            본 사이트는 PC환경에 최적화되어있습니다. <br />
+            이용에 불편을 드려 죄송합니다. 😢
+        </div>
+    </div>
     {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : "Initializing..."}
     <footer className="footer">
       <div className="footer-item">

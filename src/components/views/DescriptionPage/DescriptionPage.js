@@ -12,9 +12,9 @@ function DescriptionPage() {
                 Soozip 사이트 소개
                 </div>
                 <div className="desc_top_main">
-                Soozip은 스마트한 수집가들을 위한 소셜 커뮤니티 플랫폼입니다. 🙋🏻‍♂️ <br/>
-                내가 모으는 아이템들을 뽐내고, 다른 Soozip가들의 개성 넘치는 수집 공간을 구경하며 <br/>
-                함께하는 수집의 즐거움을 경험해보세요. <br/>
+                Soozip은 내가 <span style={{color:'#FF7F00', fontWeight:'700'}}>애정하는 물건</span>들을 온라인상의 공간에 보관하고 🙋🏻‍♂️ <br />
+                남들과 <span style={{color:'#FF7F00', fontWeight:'700'}}>소통</span>하고 싶은 사람들을 위해서 제작되었습니다. <br />
+                모두가 자신의 <span style={{color:'#FF7F00', fontWeight:'700'}}>소중한 컬렉션</span>을 자유롭게 공유하는 문화를 만들고 싶습니다.
                 </div>
             </div>
             <div className="desc_mid">
@@ -41,7 +41,7 @@ function DescriptionPage() {
                         </div>
                         <div style={{margin:'15px 0px'}}>
                             <span>
-                            <span style={{fontWeight:'bold'}}>2.</span> 메인화면에서 내 갤러리를 생성한다.
+                            <span style={{fontWeight:'bold'}}>2.</span> 메인화면에서 내 갤러리를 생성하는 버튼을 클릭한다.
                             </span>
                         </div>
                         <div style={{margin:'15px 0px'}}>
@@ -50,11 +50,11 @@ function DescriptionPage() {
                             </span>
                         </div>
                     </div>
-                        <span>
+                        {/* <span>
                             <img src={first} width={150} height={50} alt="alt"/>
                             <img src={first} width={150} height={50} alt="alt"/>
                             <img src={first} width={150} height={50} alt="alt"/>
-                        </span>
+                        </span> */}
                     <div style={{display:'flex', justifyContent:'center', width:'100%'}}>
                     {/* <img alt="2" src={first} className="example_image"/> */}
                     </div>
@@ -80,13 +80,14 @@ function DescriptionPage() {
                             <span style={{fontWeight:'bold'}}>2.</span> <span style={{color:'#62a0b0', fontWeight:'bold'}}>댓글</span>, <span style={{color:'#62a0b0', fontWeight:'bold'}}>좋아요</span>, <span style={{color:'#62a0b0', fontWeight:'bold'}}>Hit</span>으로 소통합니다. <br /> 
                             </span>
                             <span>
-                            Hit은 제한이 없는 내 호감표시로, 마음에 드는 수집공간이 있다면 얼마든지 원하는만큼 눌러서 관심을 표할 수 있습니다.
+                                <br />
+                             ⚠️ Hit은 제한이 없는 내 호감표시로, 마음에 드는 수집공간이 있다면 얼마든지 원하는만큼 눌러서 관심을 표할 수 있습니다.
                             </span>
                         </div>
-                        <span>
+                        {/* <span>
                             <img src={first} width={150} height={50} alt="alt"/>
                             <img src={first} width={150} height={50} alt="alt"/>
-                        </span>
+                        </span> */}
                     </div>
                 </div>
                 <div className="desc_one_func">
